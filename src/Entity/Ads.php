@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\AdsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AdsRepository::class)]
@@ -29,7 +30,7 @@ class Ads
     private ?int $built = null;
 
     #[ORM\Column]
-    private ?int $kilometer = null;
+    private ?int $kilometers = null;
 
     #[ORM\Column]
     private ?int $price = null;
@@ -46,6 +47,9 @@ class Ads
     #[ORM\ManyToOne(inversedBy: 'ads')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description = null;
 
     public function __construct()
     {
@@ -105,14 +109,14 @@ class Ads
         return $this;
     }
 
-    public function getKilometer(): ?int
+    public function getKilometers(): ?int
     {
-        return $this->kilometer;
+        return $this->kilometers;
     }
 
-    public function setKilometer(int $kilometer): static
+    public function setKilometers(int $kilometers): static
     {
-        $this->kilometer = $kilometer;
+        $this->kilometers = $kilometers;
 
         return $this;
     }
@@ -191,6 +195,18 @@ class Ads
     public function setAuthor(?User $author): static
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): static
+    {
+        $this->description = $description;
 
         return $this;
     }

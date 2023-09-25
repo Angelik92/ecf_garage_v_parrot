@@ -18,7 +18,7 @@ class Cars
     #[ORM\Column(length: 100)]
     private ?string $model = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column]
     private ?int $power = null;
 
     #[ORM\ManyToOne]

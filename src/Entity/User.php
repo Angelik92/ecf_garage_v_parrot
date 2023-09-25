@@ -36,6 +36,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'moderator', targetEntity: Testimonials::class)]
     private Collection $testimonials;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $create_at = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $firstname = null;
+
+    #[ORM\Column(length: 50)]
+    private ?string $lastname = null;
+
     public function __construct()
     {
         $this->ads = new ArrayCollection();
@@ -168,6 +177,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $testimonial->setModerator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeImmutable
+    {
+        return $this->create_at;
+    }
+
+    public function setCreateAt(\DateTimeImmutable $create_at): static
+    {
+        $this->create_at = $create_at;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(string $firstname): static
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
 
         return $this;
     }
