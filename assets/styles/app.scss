@@ -1,3 +1,15 @@
+$primary : #8D0102;
+$secondary: #080A0E;
+$tertiary: #F2F2F2;
 
+$theme-colors:(
+        "primary":$primary,
+        "secondary":  $secondary,
+        "tertiary": $tertiary
+);
+
+
+@import "./variables";
 
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-icons/font/bootstrap-icons";
