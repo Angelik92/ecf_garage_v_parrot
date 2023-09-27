@@ -39,4 +39,30 @@
             </div>
         </div>
     </section>
+
+    <section class="ads pt-5">
+        <div class="container d-flex flex-column justify-content-center align-items-center text-tertiary">
+            <h2 class="fw-bold mt-5"> Les dernières annonces</h2>
+            <p class="mt-5">Ne manquez pas nos dernières offres exceptionnelles sur les véhicules d'occasion ! Venez dès maintenant dans notre garage et profitez des meilleures opportunités pour trouver votre prochaine voiture.</p>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                {% for ad in ads %}
+                    <div class="col">
+                        <div class="card h-100">
+                            <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="card-img-top" alt="photo du véhicule">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ ad.title }}</h3>
+                                <p><span class="fw-bold"> {{ ad.car.brand.name | upper}} </span> {{ ad.car.model | capitalize}}</p>
+                                <p>{{ ad.car.gearbox.label }} | {{ ad.car.fuel.label }} | {{ ad.car.power }} CH
+                                <p class="card-text">{{ ad.description }}</p>
+                                <a href="#" class="btn btn-primary"> Contactez-nous</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="#" class="btn btn-outline-tertiary my-5"> Voir toutes les annonces</a>
+        </div>
+
+    </section>
 {% endblock %}
