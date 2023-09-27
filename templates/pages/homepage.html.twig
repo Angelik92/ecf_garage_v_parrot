@@ -3,58 +3,73 @@
 {% block title %}Bienvenue!{% endblock %}
 
 {% block body %}
-    <section class="hero position-relative">
-        <div class="container text-tertiary w-100 h-100 pt-6">
-            <div class="container w-75 position-absolute">
-                <h1 class="text-end  fw-bold transparent-bg z-n2 ">Bienvenue au garage Parrot : votre spécialiste de l'automobile !</h1>
-                <p class="text-end transparent-bg z-n2 fs-5">Votre partenaire de confiance pour tous vos besoins automobiles depuis 15 ans. Nous sommes passionnés par les voitures et dévoués à offrir des services de qualité supérieure. Notre équipe de techniciens expérimentés est là pour vous.</p>
-            </div>
-            <img class="hero__image bg-image position-absolute top-0 start-0 z-n1" src="{{ asset('build/images/hero.jpeg') }}" alt="Voiture sportive rouge">
+
+    {# --------------- section hero --------------- #}
+
+    <section class="hero ">
+        <div class="container text-tertiary w-50 h-100 d-flex flex-column justify-content-center align-items-end">
+            {# Hero section with a welcoming message #}
+            <h1 class="fw-bold transparent-bg ">Bienvenue au garage Parrot : votre spécialiste de l'automobile !</h1>
+            <p class="transparent-bg fs-5">Votre partenaire de confiance pour tous vos besoins automobiles depuis 15 ans. Nous sommes passionnés par les voitures et dévoués à offrir des services de qualité supérieure. Notre équipe de techniciens expérimentés est là pour vous.</p>
         </div>
     </section>
+
+    {# --------------- section service --------------- #}
+
     <section class="service pt-5 bg-tertiary text-secondary">
-        <div class="container d-flex flex-column justify-content-center align-items-center">
+        <div class="container d-flex flex-column justify-content-center align-items-center pb-5">
             <h2 class="fw-bold mt-5"> Les services proposés</h2>
-            <p class="mt-3">Pour une conduite en toute sécurité, il est essentiel de planifier régulièrement l'entretien de votre véhicule. Au garage V PARROT, nous vous offrons des forfaits compétitifs pour assurer le bon fonctionnement de votre auto grâce à des révisions périodiques.</p>
-            <div class = "row d-flex justify-content-around">
+            <p class="mt-3 w-75">Pour une conduite en toute sécurité, il est essentiel de planifier régulièrement l'entretien de votre véhicule. Au garage V PARROT, nous vous offrons des forfaits compétitifs pour assurer le bon fonctionnement de votre auto grâce à des révisions périodiques.</p>
+            <div class = "row d-flex justify-content-around mt-4">
+
+                {# Iterates through a list of services and displays information about each service #}
+
                 {% for service in services %}
                     <div class="col-sm-12 col-md-6 col-lg-3 mt-5">
                         <div class="service__card ">
                             <div class="service__card__inner">
                                 <div class="card service__card__front">
                                     <img src="{{ asset('build/images/pneu.png')}}" class="card-img bg-image" alt="...">
-                                    <div class=" card-img-overlay text-primary fw-bold">
-                                        <h3>{{ service.title }}</h3>
+                                    <div class=" card-img-overlay text-primary fw-bold d-flex flex-column justify-content-around align-items-center">
+                                        <h3 class="fw-bolder">{{ service.title | upper}}</h3>
                                         <p>A partir de {{ service.price | default('sur devis') }} €</p>
                                     </div>
                                 </div>
-                                <div class="card service__card__end bg-secondary p-5">
-                                    <p>{{ service.description }}</p>
-                                    <li><a href="#" class="btn btn-primary">Demande d'information</a></li>
+                                <div class="card service__card__end bg-secondary p-3">
+                                    <p class="text-tertiary">{{ service.description }}</p>
+                                    <a href="#" class="btn btn-outline-primary">Demande d'information</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+            <a href="#" class="btn btn-outline-primary d-block mt-5">Demande d'information</a>
         </div>
+
     </section>
+
+    {# --------------- section ads --------------- #}
 
     <section class="ads pt-5">
         <div class="container d-flex flex-column justify-content-center align-items-center text-tertiary">
             <h2 class="fw-bold mt-5"> Les dernières annonces</h2>
-            <p class="mt-5">Ne manquez pas nos dernières offres exceptionnelles sur les véhicules d'occasion ! Venez dès maintenant dans notre garage et profitez des meilleures opportunités pour trouver votre prochaine voiture.</p>
+            <p class="mt-3 w-75">Ne manquez pas nos dernières offres exceptionnelles sur les véhicules d'occasion ! Venez dès maintenant dans notre garage et profitez des meilleures opportunités pour trouver votre prochaine voiture.</p>
 
             <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                {# Iterates through a list of services and displays information about each ad #}
                 {% for ad in ads %}
                     <div class="col">
                         <div class="card h-100">
                             <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="card-img-top" alt="photo du véhicule">
+
+                            {# Displaying ad details such as title, vehicle information, and price #}
                             <div class="card-body">
-                                <h3 class="card-title">{{ ad.title }}</h3>
-                                <p><span class="fw-bold"> {{ ad.car.brand.name | upper}} </span> {{ ad.car.model | capitalize}}</p>
-                                <p>{{ ad.car.gearbox.label }} | {{ ad.car.fuel.label }} | {{ ad.car.power }} CH
-                                <p class="card-text">{{ ad.description }}</p>
+                                <h3 class="card-title">{{ ad.title | upper}}</h3>
+                                <p><span class="fw-bold"> {{ ad.car.brand.name | upper}} </span> - {{ ad.car.model | capitalize}}</p>
+                                <p>{{ ad.car.gearbox.label | capitalize}} | {{ ad.car.fuel.label | capitalize }} | {{ ad.car.power }} CH
+                                <p class="card-text">{{ ad.description | capitalize}}</p>
+                                <p class="fw-bold fs-3 text-center"> {{ ad.price }} €</p>
                                 <a href="#" class="btn btn-primary"> Contactez-nous</a>
                             </div>
                         </div>
@@ -64,5 +79,52 @@
             <a href="#" class="btn btn-outline-tertiary my-5"> Voir toutes les annonces</a>
         </div>
 
+    </section>
+    <section class="testimonial bg-secondary text-tertiary pt-5">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+
+            <h2 class="fw-bold mt-5">Les avis des clients</h2>
+            <p class="mt-5 w-75">Pour obtenir une réponse à cette question, qui suscite souvent l'interrogation chez de nombreux d'entre nous, quoi de plus pertinent que de consulter les évaluations et les avis laissés par les clients précédents ?</p>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+                {% for testimonial in testimonials %}
+                <div class="col">
+                    <div class="card border border-2 border-tertiary rounded-4">
+                        <div class="row g-0">
+                            <div class="col-md-4 d-flex flex-column align-items-center bg-tertiary rounded-start-4">
+                                <h3 class="fs-3 fw-bold">{{ testimonial.client | capitalize }}</h3>
+                                <p class="fs-3 bg-secondary p-3 text-tertiary rounded-circle d-flex align-items-center justify-content-center">{% if testimonial.service.title == 'Service1' %}
+                                        <i class="bi bi-car-front-fill"></i>
+                                    {% else  %}
+                                        <i class="bi bi-tools"></i>
+                                    {% endif %}
+                                </p>
+                                <p>{{ testimonial.dateofservice | date('d-m-Y')}}</p>
+                                <p>{{ testimonial.rating }}</p>
+                            </div>
+                            <div class="col-md-8 ">
+                                <div class="card-body bg-secondary h-100 w-100 rounded-end-4">
+                                    <h4 class="card-title text-tertiary fs-4 fw-bold">
+                                        {% if testimonial.service.title == 'Service1' %}
+                                            Achat de véhicule
+                                        {% else  %}
+                                            Réparation
+                                        {% endif %}
+                                    </h4>
+                                    <p class="card-text text-tertiary fst-italic">"{{ testimonial.content }}"</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-grid gap-5 d-flex justify-content-center">
+                <a href="#" class="btn btn-outline-tertiary my-5"> Voir tous les témoignages</a>
+                <a href="#" class="btn btn-outline-tertiary my-5"> Donner votre avis</a>
+            </div>
+
+        </div>
     </section>
 {% endblock %}
