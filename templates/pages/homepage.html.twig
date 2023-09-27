@@ -3,12 +3,40 @@
 {% block title %}Bienvenue!{% endblock %}
 
 {% block body %}
-    <section class="hero">
-        <img class="hero__image " src="{{ asset('build/images/hero.jpeg') }}" alt="Voiture sportive rouge">
-        <div class="container mt-5">
-            <h1 class="text-center">Bienvenue au garage Parrot : votre spécialiste de l'automobile !</h1>
-            <p class=>Votre partenaire de confiance pour tous vos besoins automobiles depuis 15 ans. Nous sommes passionnés par les voitures et dévoués à offrir des services de qualité supérieure. Notre équipe de techniciens expérimentés est là pour vous.</p>
+    <section class="hero position-relative">
+        <div class="container text-tertiary w-100 h-100 pt-6">
+            <div class="container w-75 position-absolute">
+                <h1 class="text-end  fw-bold transparent-bg z-n2 ">Bienvenue au garage Parrot : votre spécialiste de l'automobile !</h1>
+                <p class="text-end transparent-bg z-n2 fs-5">Votre partenaire de confiance pour tous vos besoins automobiles depuis 15 ans. Nous sommes passionnés par les voitures et dévoués à offrir des services de qualité supérieure. Notre équipe de techniciens expérimentés est là pour vous.</p>
+            </div>
+            <img class="hero__image bg-image position-absolute top-0 start-0 z-n1" src="{{ asset('build/images/hero.jpeg') }}" alt="Voiture sportive rouge">
         </div>
-
+    </section>
+    <section class="service pt-5 bg-tertiary text-secondary">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+            <h2 class="fw-bold mt-5"> Les services proposés</h2>
+            <p class="mt-3">Pour une conduite en toute sécurité, il est essentiel de planifier régulièrement l'entretien de votre véhicule. Au garage V PARROT, nous vous offrons des forfaits compétitifs pour assurer le bon fonctionnement de votre auto grâce à des révisions périodiques.</p>
+            <div class = "row d-flex justify-content-around">
+                {% for service in services %}
+                    <div class="col-sm-12 col-md-6 col-lg-3 mt-5">
+                        <div class="service__card ">
+                            <div class="service__card__inner">
+                                <div class="card service__card__front">
+                                    <img src="{{ asset('build/images/pneu.png')}}" class="card-img bg-image" alt="...">
+                                    <div class=" card-img-overlay text-primary fw-bold">
+                                        <h3>{{ service.title }}</h3>
+                                        <p>A partir de {{ service.price | default('sur devis') }} €</p>
+                                    </div>
+                                </div>
+                                <div class="card service__card__end bg-secondary p-5">
+                                    <p>{{ service.description }}</p>
+                                    <li><a href="#" class="btn btn-primary">Demande d'information</a></li>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </section>
 {% endblock %}
