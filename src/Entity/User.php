@@ -37,7 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $testimonials;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $create_at = null;
+    private ?\DateTime $create_at = null;
 
     #[ORM\Column(length: 50)]
     private ?string $firstname = null;
@@ -181,12 +181,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeImmutable
+    public function getCreateAt(): ?\DateTime
     {
         return $this->create_at;
     }
 
-    public function setCreateAt(\DateTimeImmutable $create_at): static
+    public function setCreateAt(\DateTime $create_at): static
     {
         $this->create_at = $create_at;
 

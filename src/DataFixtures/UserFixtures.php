@@ -25,7 +25,7 @@ class UserFixtures extends Fixture
         $admin ->setEmail('parrot@example.com');
         $admin -> setLastname('PARROT' );
         $admin -> setFirstname('Vincent');
-        $admin -> setCreateAt(new \DateTimeImmutable());
+        $admin -> setCreateAt(new \DateTime());
 
         //Hash and set the password
         $password = $this->hasher->hashPassword($admin, 'Pass_1234');
@@ -41,7 +41,7 @@ class UserFixtures extends Fixture
             $user ->setEmail('user' . $i . '@example.com');
             $user -> setLastname('Nom' . $i);
             $user -> setFirstname('Prénom' . $i);
-            $user -> setCreateAt(new \DateTimeImmutable());
+            $user -> setCreateAt(new \DateTime());
 
             // Hash and set the password
             $password = $this->hasher->hashPassword($user, 'Pass_1234');

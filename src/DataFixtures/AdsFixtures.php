@@ -17,7 +17,7 @@ class AdsFixtures extends Fixture implements DependentFixtureInterface
             // Set basic attributes
             $ads ->setRegistrationNb('ab' . $i . 'cd');
             $ads -> setTitle('titre annonce '. $i);
-            $ads ->setCreateAt(new \DateTimeImmutable());
+            $ads ->setCreateAt(new \DateTime());
             $ads-> setBuilt(Rand(1970, 2023));
             $ads -> setPrice(rand(5000, 40000));
             $ads ->setDescription('Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.');

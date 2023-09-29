@@ -17,8 +17,8 @@ class Testimonials
     #[ORM\Column(length: 100)]
     private ?string $client = null;
 
-    #[ORM\Column(type: Types::DATE_IMMUTABLE)]
-    private ?\DateTimeImmutable $date_of_service = null;
+    #[ORM\Column]
+    private ?\DateTime $date_of_service = null;
 
     #[ORM\Column]
     private ?int $rating = null;
@@ -30,7 +30,7 @@ class Testimonials
     private ?bool $approved = null;
 
     #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $update_at = null;
+    private ?\DateTime $update_at = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -56,12 +56,12 @@ class Testimonials
         return $this;
     }
 
-    public function getDateOfService(): ?\DateTimeImmutable
+    public function getDateOfService(): ?\DateTime
     {
         return $this->date_of_service;
     }
 
-    public function setDateOfService(\DateTimeImmutable $date_of_service): static
+    public function setDateOfService(\DateTime $date_of_service): static
     {
         $this->date_of_service = $date_of_service;
 
@@ -104,12 +104,12 @@ class Testimonials
         return $this;
     }
 
-    public function getUpdateAt(): ?\DateTimeImmutable
+    public function getUpdateAt(): ?\DateTime
     {
         return $this->update_at;
     }
 
-    public function setUpdateAt(?\DateTimeImmutable $update_at): static
+    public function setUpdateAt(?\DateTime $update_at): static
     {
         $this->update_at = $update_at;
 

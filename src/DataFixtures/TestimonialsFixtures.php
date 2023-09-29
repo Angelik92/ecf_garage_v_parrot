@@ -17,7 +17,7 @@ class TestimonialsFixtures extends Fixture implements DependentFixtureInterface
             $testimonial = new Testimonials();
 
             // Set attributes basic
-            $testimonial->setDateOfService(new \DateTimeImmutable());
+            $testimonial->setDateOfService(new \DateTime());
             $testimonial->setClient('client ' . $i);
             $testimonial->setContent('It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.');
 
