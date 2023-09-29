@@ -1,8 +1,9 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_db.html.twig' %}
 
 {% block title %}Hello DashboardController!{% endblock %}
 
 {% block body %}
-<h1>dashboard</h1>
+<h1 class="text-primary">dashboard</h1>
     <a href="{{ path('logout') }}">Déconnecter</a>
+    <a href="{{ path('home') }}">Accueil</a>
 {% endblock %}

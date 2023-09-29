@@ -1,3 +1,4 @@
+
 $primary : #8D0102;
 $secondary: #080A0E;
 $tertiary: #F2F2F2;
@@ -8,8 +9,7 @@ $theme-colors:(
         "tertiary": $tertiary
 );
 
-
-@import "./variables";
-
-@import "~bootstrap/scss/bootstrap";
 @import "~bootstrap-icons/font/bootstrap-icons";
+@import "~bootstrap/scss/bootstrap";
+@import "variables";
+@import "base";
