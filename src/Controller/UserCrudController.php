@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -42,7 +45,7 @@ class UserCrudController extends AbstractController
     }
 
     #[Route('/nouveau', name: 'user_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, MailerService $mailerService): Response
     {
         // Create a new User object.
         $user = new User();
@@ -65,6 +68,11 @@ class UserCrudController extends AbstractController
             // Persist the user object to the database.
             $entityManager->persist($user);
             $entityManager->flush();
+
+            // Send a welcome email to the user.
+            $mailerService->sendMail('contact@gpv.fr', $user->getEmail(), 'Bienvenue dans votre nouvelle entreprise ! .', '@email_templates/welcome.html.twig', [
+                'username' => $user->getFirstname(),
+            ]);
 
             // Add a success flash message and redirect to the user index page.
             $this->addFlash('success', 'Le salarié est créé ! ');
@@ -93,7 +101,7 @@ class UserCrudController extends AbstractController
 
     // Edit a user's details.
     #[Route('/{id}/modifier', name: 'user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, MailerInterface $mailer): Response
     {
         // Create a form for user editing.
         $form = $this->createForm(UserType::class, $user);

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <head>
+        <meta charset="utf-8">
+        <title>Biencenue</title>
+        <link rel="stylesheet" href="style.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        {% apply inline_css(source('@email_css/style.css')) %}
+        <h1>Bievenue {{ username | capitalize }} ! </h1>
+        <p>Nous sommes ravis de vous accueillir au sein de l'équipe du Garage Vincent Parrot. Votre contribution est essentielle pour notre succès et nous sommes convaincus que vous apporterez de grandes compétences et une énergie positive à notre équipe.</p>
+        <p>Votre compte a été créé, mais avant de commencer, nous vous recommandons de définir votre propre mot de passe (au minimum 8 caractères, une majuscule, un minuscule et un caractère spécial) . Cela prendra quelques minutes. Cliquez sur le lien ci-dessous :</p>
+        <a href="#">Changer de mot de passe</a>
+        <p>Nous sommes impatients de travailler avec vous.</p>
+        <p>Cordialement</p>
+        <p>Vincent Parrot</p>
+        {% endapply %}
+    </body>
+</html>
