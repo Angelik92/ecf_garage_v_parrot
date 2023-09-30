@@ -20,7 +20,7 @@
             </div>
 
             {# Navigation menu with dynamic routes #}
-            <ul class="nav nav-pills flex-column mb-auto fs-4 p-3">
+            <ul class="nav nav-pills flex-column mb-auto fs-5 p-3">
 
                 {# Define the routes variable as an object (associative array) containing key-value pairs. #}
                 {% set routes ={
@@ -30,28 +30,25 @@
                 } %}
 
 
-               {# {% if is_granted('ROLE_ADMIN')  %}
-               {# 'testimonial': {'label': 'Avis', 'path': '#', 'icon': 'bi bi-chat-square-quote'},
+               {% if is_granted('ROLE_ADMIN') %}
                 {% set routes = routes|merge({
-                    'user': {'label': 'Salariés', 'path': '#', 'icon': 'bi bi-people-fill'},
-                    'service': {'label': 'Services', 'path': '#', 'icon': 'bi bi-tools'},
-                    'info': {'label': 'Informations', 'path': '#', 'icon': 'bi bi-info-square'},
+                    'user': {'label': 'Salariés', 'path': 'user_index', 'icon': 'bi bi-people-fill'},
 
-                }) %} #}
+                }) %}
+                {% endif %}
 
 
-                {# Loop through the available routes and apply styling to the active route #}
                 {% for key, route in routes %}
                     <li class="nav-item ">
                         <a href="{{ path(route.path) }}" class="nav-link
 
                             {% if app.request.get('_route') == route.path %}
-                                active" aria-current="page"
+                                active" aria-current="page">
                             {% else %}
-                                ""
+                                ">
                             {% endif %}
 
-                        ><i class="{{ route.icon }}"></i> {{ route.label }}</a>
+                        <i class="{{ route.icon }}"></i> {{ route.label }}</a>
                     </li>
                 {% endfor %}
             </ul>

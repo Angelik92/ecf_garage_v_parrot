@@ -6,9 +6,14 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
+
+
+#[UniqueEntity('email', message: 'L\'email est déjà enregistré.')]
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -16,9 +21,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner un mail')]
+    #[Assert\Length(
+        min: 10,
+        max: 180,
+        minMessage: 'L\'email doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'L\'email doit contenir au maximum {{limit}} lettres.')]
+    #[Assert\Email(message: '{{ value }} n\'est pas une adresse valide ! ')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -28,6 +41,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[Assert\NotBlank(message:'Veuillez renseigner un mot de passe')]
+    #[Assert\Length(min:8, minMessage:'Le mot de passe doit faire au minimum {{ limit }} caractères')]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ads::class)]
@@ -40,6 +55,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTime $create_at = null;
 
     #[ORM\Column(length: 50)]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: 'Le prénom doit contenir au moins {{limit}} lettres',
+        maxMessage: 'Le prénom doit contenir au maximum {{limit}} lettres.')]
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ prénom')]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-ZÀ-ÖØ-öø-ÿ\s-]+$/u',
+        message: 'Le prénom ne peut contenir que des lettres.')]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 50)]

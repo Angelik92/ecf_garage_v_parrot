@@ -6,7 +6,6 @@ $success: #275932;
 $danger: #8D0102;
 $dark: #080A0E;
 
-
 $theme-colors:(
         "primary":    $primary,
         "secondary":  $secondary,
@@ -25,6 +24,7 @@ $new-nav-pills: (
 --#{$prefix}-nav-pills-border-radius: #{$nav-pills-border-radius},
 --#{$prefix}nav-pills-link-active-color: #{$nav-pills-link-active-color},
 --#{$prefix}nav-pills-link-active-bg: #{$nav-pills-link-active-bg});
+
 
 @import "base";
 @import "variables_db";
