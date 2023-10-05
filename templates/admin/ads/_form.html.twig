@@ -1,0 +1,4 @@
+{{ form_start(form) }}
+    {{ form_widget(form, {'attr': {'class':'bg-secondary bg-opacity-75 rounded-4 p-5 text-primary fw-medium'} }) }}
+<button class="btn btn-success"><i class="bi bi-floppy"></i> {{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}

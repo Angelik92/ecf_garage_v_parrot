@@ -13,3 +13,11 @@ reset_password_request:
     path: '/reset_password_request'
     controller: 'App\Controller\ResetPasswordController::resetPasswordRequest'
     methods: ['GET', 'POST']
+
+gearboxes:
+    path: '/gearboxes'
+    controller: 'App\Controller\GearboxesController::createGearbox'
+
+fuels:
+    path: '/fuels'
+    controller: 'App\Controller\FuelsController::createFuel'
