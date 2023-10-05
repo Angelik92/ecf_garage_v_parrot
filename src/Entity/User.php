@@ -69,10 +69,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     private ?string $lastname = null;
 
+    #[ORM\OneToMany(mappedBy: 'updateBy', targetEntity: Ads::class)]
+    private Collection $adsUpdate;
+
     public function __construct()
     {
         $this->ads = new ArrayCollection();
         $this->testimonials = new ArrayCollection();
+        $this->adsUpdate = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -239,5 +243,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Ads>
+     */
+    public function getAdsUpdate(): Collection
+    {
+        return $this->adsUpdate;
+    }
+
+    public function addAdsUpdate(Ads $adsUpdate): static
+    {
+        if (!$this->adsUpdate->contains($adsUpdate)) {
+            $this->adsUpdate->add($adsUpdate);
+            $adsUpdate->setUpdateBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdsUpdate(Ads $adsUpdate): static
+    {
+        if ($this->adsUpdate->removeElement($adsUpdate)) {
+            // set the owning side to null (unless already changed)
+            if ($adsUpdate->getUpdateBy() === $this) {
+                $adsUpdate->setUpdateBy(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->getFirstname() . ' ' . $this->getLastname();
     }
 }
