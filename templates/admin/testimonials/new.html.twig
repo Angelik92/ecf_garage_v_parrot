@@ -1,0 +1,15 @@
+{% extends 'base_db.html.twig' %}
+
+{% block title %}New Testimonials{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly text-primary">
+        <h1 class="text-light fw-bold" >Créer un nouvel avis</h1>
+
+        {{ include('admin/testimonials/_form.html.twig') }}
+
+        <a class="btn btn-primary" href="{{ path('testimonials_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
+    </div>
+
+{% endblock %}

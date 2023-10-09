@@ -23,7 +23,7 @@ class BrandsCrudController extends AbstractController
     {
         $brands = $paginator->paginate(
 
-            $brandsRepository->findBy([], ['name' => 'ASC']),
+            $brandsRepository->findAll(),
 
             $request->query->getInt('page', 1),
             9

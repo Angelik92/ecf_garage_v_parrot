@@ -8,7 +8,7 @@
         <h1 class="text-light fw-bold">Service</h1>
 
         <h2 class="text-light fw-bold">Face avant de la carte</h2>
-        <div class="card w-25">
+        <div class="card service__card">
             <img src="/uploads/{{ service.pictureFile.getPath() }}" class="card-img bg-image" alt="...">
             <div class=" card-img-overlay text-danger fw-bold d-flex flex-column justify-content-around align-items-center">
                 <h3 class="fw-bolder">{{ service.title | upper}}</h3>
@@ -16,7 +16,7 @@
             </div>
         </div>
         <h2 class="text-light fw-bold">Face arrière de la carte</h2>
-        <div class="card p-3 w-25 bg-dark">
+        <div class="card p-3 w-25 bg-dark service__card">
             <p class="text-light">{{ service.description }}</p>
         </div>
 
