@@ -37,7 +37,8 @@
                {% if is_granted('ROLE_ADMIN') %}
                 {% set routes = routes|merge({
                     'user': {'label': 'Salariés', 'path': 'user_index', 'icon': 'bi bi-people-fill'},
-                    'service': {'label': 'Services', 'path': 'services_index', 'icon': 'bi bi-tools'}
+                    'service': {'label': 'Services', 'path': 'services_index', 'icon': 'bi bi-tools'},
+                    'garage': {'label': 'Garages', 'path': 'garages_index', 'icon': 'bi bi-info-square'}
 
                 }) %}
                 {% endif %}

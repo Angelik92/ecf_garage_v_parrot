@@ -44,17 +44,7 @@ class AdsCrudController extends AbstractController
         $ad = new Ads();
 
         // Create a form for the Ads entity using AdsType form type
-        $form = $this->createForm(AdsType::class, $ad)
-            ->add('create_at', DateType::class, [
-                'label' => 'Date de création',
-                'data' => new \DateTime()
-            ])
-            ->add('author', EntityType::class, [
-                'label' => 'Auteur',
-                'class' => User::class,
-                'choice_label' => 'lastname',
-                'data' => $this->getUser()
-            ]);
+        $form = $this->createForm(AdsType::class, $ad);
 
         // Handle the form submission
         $form->handleRequest($request);
@@ -63,6 +53,7 @@ class AdsCrudController extends AbstractController
             // Get the uploaded picture files
             $pictureFiles = $form->get('pictures')->getData();
 
+
             foreach ($pictureFiles as $pictureFile) {
                 $picturePath = $uploaderService->upload($pictureFile);
                 $ad->addPicture($picturePath);
@@ -70,7 +61,7 @@ class AdsCrudController extends AbstractController
                 // Persist Pictures entity
                 $entityManager->persist($picturePath);
             }
-
+           ;
             // Persist Ads entity
             $entityManager->persist($ad);
             $entityManager->flush();

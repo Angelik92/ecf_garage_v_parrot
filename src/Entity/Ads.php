@@ -70,7 +70,8 @@ class Ads
     private ?int $price = null;
 
     #[ORM\Column]
-    private ?\DateTime $create_at = null;
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ de la date de création.')]
+    private \DateTime $create_at;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTime $update_at = null;

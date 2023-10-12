@@ -20,6 +20,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 
+
 class AdsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -28,11 +29,22 @@ class AdsType extends AbstractType
             ->add('title', TextType::class, [
                 'label' => 'Titre'
             ])
+            ->add('create_at', DateType::class, [
+                'label' => 'Date de création',
+                'data' => new \DateTime('now'),
+
+            ])
+            ->add('author', EntityType::class, [
+                'label' => 'Auteur',
+                'class' => User::class,
+                'choice_label' => 'lastname',
+
+            ])
             ->add('registration_nb', TextType::class, [
                 'label' => 'Immatriculation'
             ])
             ->add('built', IntegerType::class, [
-                'label' => 'Date de construction'
+                'label' => 'Année de construction'
             ])
             ->add('kilometers', IntegerType::class, [
                 'label' => 'Nombre de kilomètre'
@@ -48,7 +60,7 @@ class AdsType extends AbstractType
                 'label' => 'Modèle',
                 'class' => Cars::class,
                 'choice_label' => 'model',
-                'placeholder' => 'Choisir ou créer un modèle'
+                'placeholder' => 'Choisir un modèle'
             ])
             ->add('pictures', FileType::class, [
                 'label' => "Photos",
@@ -57,7 +69,9 @@ class AdsType extends AbstractType
                 'required' => false,
             ])
             ->add('Valider', SubmitType::class, [
-
+                'attr' => [
+                    'class' => 'btn btn-success'
+                ]
             ])
         ;
     }
