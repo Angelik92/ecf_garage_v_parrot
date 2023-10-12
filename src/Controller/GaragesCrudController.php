@@ -35,6 +35,7 @@ class GaragesCrudController extends AbstractController
             $entityManager->persist($garage);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le garage a été ajoutée ! ');
             return $this->redirectToRoute('garages_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -61,6 +62,7 @@ class GaragesCrudController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
+            $this->addFlash('success', 'Le garage a été modifié ! ');
             return $this->redirectToRoute('garages_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -78,6 +80,7 @@ class GaragesCrudController extends AbstractController
             $entityManager->flush();
         }
 
+        $this->addFlash('success', 'Le garage a été supprimé ! ');
         return $this->redirectToRoute('garages_index', [], Response::HTTP_SEE_OTHER);
     }
 }
