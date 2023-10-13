@@ -7,25 +7,35 @@
     <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
         <h1 class="text-light fw-bold">Service</h1>
 
-        <h2 class="text-light fw-bold">Face avant de la carte</h2>
-        <div class="card service__card">
-            <img src="/uploads/{{ service.pictureFile.getPath() }}" class="card-img bg-image" alt="...">
-            <div class=" card-img-overlay text-danger fw-bold d-flex flex-column justify-content-around align-items-center">
-                <h3 class="fw-bolder">{{ service.title | upper}}</h3>
-                <p>A partir de {{ service.price | default('sur devis') }} €</p>
+        <div class="container d-flex flex-column flex-md-row justify-content-evenly align-items-center">
+            <div>
+                <h2 class="text-light fw-bold">Face avant de la carte</h2>
+                <div class="card service__card">
+                    <img src="/uploads/{{ service.pictureFile.getPath() }}" class="card-img bg-image" alt="...">
+                    <div class=" card-img-overlay text-danger fw-bold d-flex flex-column justify-content-around align-items-center">
+                        <h3 class="fw-bolder">{{ service.title | upper}}</h3>
+                        <p> {% if service.price != null %}
+                                A partir de : {{ service.price }} €
+                            {% else %}
+                                Sur devis
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h2 class="text-light fw-bold">Face arrière de la carte</h2>
+                <div class="card service__card p-3 bg-dark ">
+                    <p class="text-light">{{ service.description }}</p>
+                </div>
             </div>
         </div>
-        <h2 class="text-light fw-bold">Face arrière de la carte</h2>
-        <div class="card p-3 w-25 bg-dark service__card">
-            <p class="text-light">{{ service.description }}</p>
-        </div>
 
-
-        <a class="btn btn-primary" href="{{ path('services_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
-
-        <a class="btn btn-primary" href="{{ path('services_edit', {'id': service.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+        <a class="btn btn-warning" href="{{ path('services_edit', {'id': service.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
 
         {{ include('admin/services/_delete_form.html.twig') }}
+
+        <a class="btn btn-primary" href="{{ path('services_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
     </div>
 {% endblock %}
 

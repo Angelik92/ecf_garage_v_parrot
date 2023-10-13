@@ -3,7 +3,7 @@
 {% block title %}Liste des services{% endblock %}
 
 {% block body %}
-    <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly text-primary">
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly ">
         <h1 class="text-light fw-bold">Liste des services</h1>
 
         {% for label, messages in app.flashes %}
@@ -21,7 +21,7 @@
                 <th>Description</th>
                 <th>Prix</th>
                 <th>Photo</th>
-                <th>actions</th>
+                <th><a class="btn btn-success" href="{{ path('services_new') }}"><i class="bi bi-plus-square"></i> Ajouter un service</a></th>
             </tr>
             </thead>
             <tbody>
@@ -35,8 +35,11 @@
                        </td>
 
                     <td>
-                        <a class="btn btn-primary" href="{{ path('services_show', {'id': service.id}) }}"><i class="bi bi-eye"></i> Voir</a>
-                        <a class="btn btn-primary" href="{{ path('services_edit', {'id': service.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+                        <div class="d-grid gap-2 mx-auto">
+                            <a class="btn btn-primary" href="{{ path('services_show', {'id': service.id}) }}"><i class="bi bi-eye"></i> Voir</a>
+                            <a class="btn btn-warning" href="{{ path('services_edit', {'id': service.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+
+                        </div>
                     </td>
                 </tr>
             {% else %}
