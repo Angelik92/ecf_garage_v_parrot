@@ -26,7 +26,7 @@ class Cars
         minMessage: 'Le modèle doit contenir au moins {{ limit }} lettres',
         maxMessage: 'Le modèle doit contenir au maximum {{ limit }} lettres.')]
     #[Assert\Regex(
-        pattern: '/^[a-zA-Z\s\-\d]+$/',
+        pattern: '/^[a-zA-Z\d\s.-]+$/',
         message: 'Le modèle ne peut contenir que des lettres et des chiffres et \'-\'.')]
     private ?string $model = null;
 
