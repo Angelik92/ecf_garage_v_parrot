@@ -6,9 +6,7 @@
     <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
         <h1 class="text-light fw-bold">Annonce</h1>
 
-        {% if ad.pictures == null %}
-            <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="image-card" alt="photo du véhicule">
-        {% else %}
+        {% if ad.pictures is not empty %}
             <div id="carouselCard" class="carousel slide">
                 <div class="carousel-inner">
                     {% for key, picture in ad.pictures %}
@@ -19,13 +17,15 @@
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <span class="visually-hidden">Précédent</span>
                 </button>
                 <button class="carousel-control-next" type="button" data-bs-target="#carouselCard" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <span class="visually-hidden">Suivant</span>
                 </button>
             </div>
+        {% else %}
+            <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="image-card" alt="photo du véhicule">
         {% endif %}
         <div class="card">
 
@@ -43,17 +43,21 @@
                 <li class="list-group-item">
                     Créé le : {{ ad.createAt|date('d-m-Y') }} par : {{ ad.author }}
                 </li>
+                {% if ad.updateAt != null %}
                 <li class="list-group-item">
                     Modifiée le : {{ ad.updateAt ? ad.updateAt|date('d-m-Y') : '' }} par : {{ ad.updateBy ? ad.updateBy : '' }}
                 </li>
+                {% endif %}
             </ul>
             <div class="card-footer d-flex justify-content-between">
                 {{ include('admin/ads/_delete_form.html.twig') }}
-                <a class="btn btn-primary" href="{{ path('ads_edit', {'id': ad.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+                <a class="btn btn-warning" href="{{ path('ads_edit', {'id': ad.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
             </div>
 
+        </div>
+        <div>
+            <a class="btn btn-primary " href="{{ path('ads_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
 
-        <a class="btn btn-primary" href="{{ path('ads_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
         </div>
     </div>
 {% endblock %}

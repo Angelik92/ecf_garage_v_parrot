@@ -5,10 +5,12 @@
 {% block body %}
 
     <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
-        <h1>Créer une nouvelle annonce</h1>
+        <h1>Modifier annonce</h1>
 
         {{ form_start(form, {'attr': {'class':'bg-secondary bg-opacity-75 rounded-4 p-5 text-primary fw-medium container'}}) }}
 
+        {{ form_errors(form) }}
+        {{ form_row(form._token) }}
         <div class="row">
             <div class="col-md-6">
                 {{ form_row(form.title) }}
@@ -65,10 +67,7 @@
             </div>
         </div>
 
-
         {{ form_end(form) }}
-
-
 
     </div>
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ads;
 use App\Entity\User;
 use App\Form\AdsType;
+use App\Form\AdsTypeEdit;
 use App\Repository\AdsRepository;
 use App\Services\UploaderService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -53,7 +54,6 @@ class AdsCrudController extends AbstractController
             // Get the uploaded picture files
             $pictureFiles = $form->get('pictures')->getData();
 
-
             foreach ($pictureFiles as $pictureFile) {
                 $picturePath = $uploaderService->upload($pictureFile);
                 $ad->addPicture($picturePath);
@@ -69,6 +69,9 @@ class AdsCrudController extends AbstractController
             // Redirect to the ads index page upon successful submission
             $this->addFlash('success', 'L\'annonce a été ajoutée ! ');
             return $this->redirectToRoute('ads_index', [], Response::HTTP_SEE_OTHER);
+        } elseif ($form->isSubmitted() && !$form->isValid()){
+            // Show an error message if the form is not valid
+            $this->addFlash('danger', 'L\'annonce n\'a pas été ajoutée');
         }
 
         return $this->render('admin/ads/new.html.twig', [
@@ -80,6 +83,7 @@ class AdsCrudController extends AbstractController
     #[Route('/{id}', name: 'ads_show', methods: ['GET'])]
     public function show(Ads $ad): Response
     {
+        // Show details of a specific ad
         return $this->render('admin/ads/show.html.twig', [
             'ad' => $ad,
         ]);
@@ -88,23 +92,17 @@ class AdsCrudController extends AbstractController
     #[Route('/{id}/edit', name: 'ads_edit', methods: ['GET', 'POST'])]
     public function edit(UploaderService $uploaderService, Request $request, Ads $ad, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(AdsType::class, $ad)
-            ->add('update_at', DateType::class, [
-                'label' => 'Date de Modification',
-                'data' => New \DateTime()
-            ])
-            ->add('update_by', EntityType::class, [
-                'label' => 'Modifié par',
-                'class' => User::class,
-                'choice_label' => 'lastname',
-                'data' => $this->getUser()
-            ]);
+        // Create a form for the Ads entity using AdsTypeEdit form type
+        $form = $this->createForm(AdsTypeEdit::class, $ad);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Get the updated picture files
             $pictureFiles = $form->get('pictures')->getData();
 
             foreach ($pictureFiles as $pictureFile) {
+                // Upload and associate new pictures with the ad
                 $picturePath = $uploaderService->upload($pictureFile);
                 $ad->addPicture($picturePath);
 
@@ -112,10 +110,15 @@ class AdsCrudController extends AbstractController
                 $entityManager->persist($picturePath);
             }
 
+            // Update the existing Ads entity
             $entityManager->flush();
 
+            // Redirect to the ads index page upon successful submission
             $this->addFlash('success', 'L\'annonce  a été modifiée ! ');
             return $this->redirectToRoute('ads_index', [], Response::HTTP_SEE_OTHER);
+        } elseif ($form->isSubmitted() && !$form->isValid()){
+            // Show an error message if the form is not valid
+            $this->addFlash('danger', 'L\'annonce n\'a pas été modifiée');
         }
 
         return $this->render('admin/ads/edit.html.twig', [
@@ -128,9 +131,11 @@ class AdsCrudController extends AbstractController
     public function delete(Request $request, Ads $ad, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$ad->getId(), $request->request->get('_token'))) {
+            // Retrieve picture files associated with the ad
             $pictureFiles = $ad->getPictures();
 
             $filesystem= new Filesystem();
+            // Remove the associated picture files from the filesystem
             foreach ($pictureFiles as $picture) {
                 $picturePath = $this->getParameter('uploads.folder').'/'.$picture->getPath();
                 if ($filesystem->exists($picturePath)) {
@@ -138,9 +143,11 @@ class AdsCrudController extends AbstractController
                 }
             }
 
+            // Delete the ad entity from the database
             $entityManager->remove($ad);
             $entityManager->flush();
         }
+        // Redirect to the ads index page upon successful deletion
         $this->addFlash('success', 'L\'annonce  a été supprimée ! ');
         return $this->redirectToRoute('ads_index', [], Response::HTTP_SEE_OTHER);
     }

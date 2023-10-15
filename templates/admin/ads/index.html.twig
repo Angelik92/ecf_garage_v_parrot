@@ -39,14 +39,16 @@
                 <td>{{ ad.price }}</td>
                 <td>{{ ad.createAt ? ad.createAt|date('d-m-Y') }}</td>
                 <td>{{ ad.updateAt ? ad.updateAt|date('d-m-Y') : '' }}</td>
-                <td>{{ ad.description }}</td>
+                <td class="w-25">{{ ad.description }}</td>
                 <td>{% for picture in ad.pictures %}
                         <img class="img_mini" src="/uploads/{{ picture.path }}">
                     {% endfor %}
                 </td>
                 <td>
-                    <a class="btn btn-primary" href="{{ path('ads_show', {'id': ad.id}) }}"><i class="bi bi-eye"></i> Voir</a>
-                    <a class="btn btn-primary" href="{{ path('ads_edit', {'id': ad.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a class="btn btn-primary" href="{{ path('ads_show', {'id': ad.id}) }}"><i class="bi bi-eye"></i> Voir</a>
+                        <a class="btn btn-warning" href="{{ path('ads_edit', {'id': ad.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+                    </div>
                 </td>
             </tr>
         {% else %}
