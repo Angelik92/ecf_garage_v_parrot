@@ -1,0 +1,15 @@
+{% extends 'base_db.html.twig' %}
+
+{% block title %}Nouvelle marque{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
+        <h1 class="text-light fw-bold">Créer une nouvelle marque</h1>
+
+        {{ include('admin/brands/_form.html.twig') }}
+
+        <a class="btn btn-primary"  href="{{ path('brands_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
+    </div>
+
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\GaragesRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GaragesRepository::class)]
 class Garages
@@ -14,18 +15,38 @@ class Garages
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ du nom.')]
+    #[Assert\Length(
+        min: 10,
+        max: 255,
+        minMessage: 'Le nom doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le nom doit contenir au maximum {{ limit }} lettres.')]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ de l\'adresse.')]
+    #[Assert\Length(
+        min: 10,
+        max: 255,
+        minMessage: 'L\'adresse doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'L\'adresse doit contenir au maximum {{ limit }} lettres.')]
     private ?string $address = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ du code postale.')]
     private ?int $zip_code = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ de la ville.')]
+    #[Assert\Length(
+        min: 3,
+        max: 255,
+        minMessage: 'La ville doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'La ville doit contenir au maximum {{ limit }} lettres.')]
     private ?string $city = null;
 
     #[ORM\Column(length: 30)]
+    #[Assert\NotBlank(message: 'Veuillez remplir le champ du téléphone.')]
     private ?string $phone = null;
 
     public function getId(): ?int

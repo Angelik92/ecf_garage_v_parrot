@@ -6,7 +6,10 @@ use App\Repository\CarsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity('model', message:'Le modèle est déjà enregistré')]
 #[ORM\Entity(repositoryClass: CarsRepository::class)]
 class Cars
 {
@@ -15,22 +18,39 @@ class Cars
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100 , unique: true)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner le modèle')]
+    #[Assert\Length(
+        min: 2,
+        max: 100,
+        minMessage: 'Le modèle doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le modèle doit contenir au maximum {{ limit }} lettres.')]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z\d\s.-]+$/',
+        message: 'Le modèle ne peut contenir que des lettres et des chiffres et \'-\'.')]
     private ?string $model = null;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 50,
+        max: 300,
+        notInRangeMessage: 'La puissance doit être comprise entre {{ min }} et {{ max }} CH ! '
+    )]
     private ?int $power = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Veuillez choisir le type de boite de vitesse')]
     private ?Gearboxes $Gearbox = null;
 
     #[ORM\ManyToOne(inversedBy: 'cars')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Veuillez choisir ou créer une marque')]
     private ?Brands $brand = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Assert\NotBlank(message: 'Veuillez choisir le type de carburant')]
     private ?Fuels $fuel = null;
 
     #[ORM\OneToMany(mappedBy: 'car', targetEntity: Ads::class)]

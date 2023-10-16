@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md bg-secondary ">
     <div class="container-fluid ">
         <div class="container w-25 d-flex flex-column flex-wrap">
-            <a class="navbar-brand text-tertiary fw-bold" href="#">Garage V Parrot
+            <a class="navbar-brand text-tertiary fw-bold" href="{{ path('home') }}">Garage V Parrot
                 <img src="{{ asset("build/images/logo.svg") }}" class="logo" alt="Logo du garage"></a>
         </div>
 
@@ -11,7 +11,7 @@
         <div class="collapse navbar-collapse justify-content-end " id="navbarSupportedContent">
             <ul class="nav nav-underline flex-column flex-md-row fs-5">
                 <li class="nav-item ">
-                    <a class="nav-link text-primary fw-bold" href="#"><i class="bi bi-house"></i> Accueil</a>
+                    <a class="nav-link text-primary fw-bold" href="{{ path('home') }}"><i class="bi bi-house"></i> Accueil</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-primary fw-bold" href="#"><i class="bi bi-tools"></i> Services</a>
@@ -22,9 +22,18 @@
                 <li class="nav-item">
                     <a class="nav-link text-primary fw-bold" href="#"><i class="bi bi-chat-square-quote"></i> Avis</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-primary fw-bold" href="{{ path('login') }}"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
-                </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-bold" href="{{ path('dashboard') }}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-bold" href="{{ path('logout') }}"><i class="bi bi-box-arrow-right"></i> Déconnexion</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-primary fw-bold" href="{{ path('login') }}"><i class="bi bi-box-arrow-in-right"></i> Connexion</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>

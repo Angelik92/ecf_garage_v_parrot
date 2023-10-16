@@ -1,8 +1,48 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_db.html.twig' %}
 
-{% block title %}Hello DashboardController!{% endblock %}
+{% block title %}Dahboard{% endblock %}
 
 {% block body %}
-<h1>dashboard</h1>
-    <a href="{{ path('logout') }}">Déconnecter</a>
+
+    <div class="container">
+        {% set cards = {
+            'ads': {'icon':'bi bi-speedometer2', 'path':'ads', 'name' : 'annonces' },
+            'brands': {'icon':'bi bi-car-front-fill', 'path':'brands', 'name' : 'marques' },
+            'cars': {'icon':'bi bi-car-front-fill', 'path':'cars', 'name' : 'modèles' },
+            'testimonial': {'icon':'bi bi-speedometer2', 'path':'testimonials', 'name' : 'avis' },
+            'annonces': {'icon':'bi bi-chat-square-quote', 'path':'ads', 'name' : 'annonces' },
+
+        } %}
+        {% if is_granted('ROLE_ADMIN') %}
+            {% set cards = cards|merge({
+                'user': { 'icon': 'bi bi-people-fill', 'path': 'user', 'name':'utilisateurs'},
+                'service': {'icon': 'bi bi-tools', 'path':'services', 'name':'services'},
+                'garage': {'icon': 'bi bi-info-square', 'path':'garages', 'name':'garages'}
+
+            }) %}
+        {% endif %}
+        <h1 class="text-light fw-bold text-center mt-5">Dashboard</h1>
+        <div class="row mt-5">
+            {% for key, card in cards %}
+            <div class="col-12 col-md-4 col-xl-3 gap-3">
+
+                <div class="card border-primary bg-secondary bg-opacity-75 rounded-4 mt-3 ">
+                    <div class="card-header">
+                        <h4 class="text-light fw-bold"><i class="{{ card.icon }}"></i> {{ card.name | capitalize }}</div></h3>
+                    <div class="card-body"></div>
+                    <div class="card-footer">
+                        <div class="d-grid d-md-block">
+                            <a class="btn btn-success m-2" href="{{ path(card.path~'_new') }}"><i class="bi bi-plus-square"></i> Ajouter</a>
+                            <a class="btn btn-primary m-2" href="{{ path(card.path~'_index') }}"><i class="bi bi-list-ul"></i> Liste</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
 {% endblock %}

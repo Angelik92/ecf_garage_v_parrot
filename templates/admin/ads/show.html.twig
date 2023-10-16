@@ -1,0 +1,63 @@
+{% extends 'base_db.html.twig' %}
+
+{% block title %}Ads{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
+        <h1 class="text-light fw-bold">Annonce</h1>
+
+        {% if ad.pictures is not empty %}
+            <div id="carouselCard" class="carousel slide">
+                <div class="carousel-inner">
+                    {% for key, picture in ad.pictures %}
+                        <div class="carousel-item {% if key == 0 %} active{% endif %}">
+                            <img class="image-card" src="/uploads/{{ picture.path }}">
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Précédent</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselCard" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Suivant</span>
+                </button>
+            </div>
+        {% else %}
+            <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="image-card" alt="photo du véhicule">
+        {% endif %}
+        <div class="card">
+
+
+            {# Displaying ad details such as title, vehicle information, and price #}
+            <ul class="card-body list-unstyled">
+                <h3 class="card-title">{{ ad.title | upper}} </h3>
+                <h4>N°d'immatriculation : {{ ad.registrationNb }}</h4>
+                <li><span class="fw-bold">{{ ad.car.brand.name| upper}} </span> - {{ ad.car.model | capitalize}}</li>
+                <li>{{ ad.car.gearbox.label | capitalize}} | {{ ad.car.fuel.label | capitalize }} | {{ ad.car.power }} CH | {{ ad.kilometers }} km  | {{ ad.built }}</li>
+                <li class="card-text">{{ ad.description | capitalize}}</li>
+                <li class="fw-bold fs-3 text-center"> {{ ad.price }} €</li>
+            </ul>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    Créé le : {{ ad.createAt|date('d-m-Y') }} par : {{ ad.author }}
+                </li>
+                {% if ad.updateAt != null %}
+                <li class="list-group-item">
+                    Modifiée le : {{ ad.updateAt ? ad.updateAt|date('d-m-Y') : '' }} par : {{ ad.updateBy ? ad.updateBy : '' }}
+                </li>
+                {% endif %}
+            </ul>
+            <div class="card-footer d-flex justify-content-between">
+                {{ include('admin/ads/_delete_form.html.twig') }}
+                <a class="btn btn-warning" href="{{ path('ads_edit', {'id': ad.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+            </div>
+
+        </div>
+        <div>
+            <a class="btn btn-primary " href="{{ path('ads_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
+
+        </div>
+    </div>
+{% endblock %}

@@ -23,6 +23,10 @@ class Services
     #[ORM\Column(nullable: true)]
     private ?int $price = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Pictures $pictureFile = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +64,18 @@ class Services
     public function setPrice(?int $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getPictureFile(): ?Pictures
+    {
+        return $this->pictureFile;
+    }
+
+    public function setPictureFile(?Pictures $pictureFile): static
+    {
+        $this->pictureFile = $pictureFile;
 
         return $this;
     }

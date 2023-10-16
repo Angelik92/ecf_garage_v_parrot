@@ -6,7 +6,10 @@ use App\Repository\BrandsRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[UniqueEntity('name', message: 'La marque est déjà enregistrée ! ')]
 #[ORM\Entity(repositoryClass: BrandsRepository::class)]
 class Brands
 {
@@ -15,7 +18,17 @@ class Brands
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, unique: true)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner le nom de la marque')]
+    #[Assert\Length(
+        min: 2,
+        max: 50,
+        minMessage: 'Le nom de la marque doit contenir au moins {{ limit }} lettres',
+        maxMessage: 'Le nom de la marque doit contenir au maximum {{limit}} lettres.')]
+    #[Assert\Regex(
+        pattern: '/^[a-zA-Z\d\s-]+$/',
+        message: 'Le nom de la marque doit contenir uniquement des lettres et chiffres.'
+    )]
     private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'brand', targetEntity: Cars::class)]
