@@ -1,0 +1,24 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Annonces{% endblock %}
+
+
+{% block body %}
+    <div class="bg_ads">
+
+        <div class="container ads_container js-filter">
+
+            {% include 'pages/ads/partials/_filters.html.twig' %}
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 js-filter-content mt-5">
+
+                {% include 'pages/ads/partials/_ads_cards.html.twig' %}
+
+            </div>
+            <div class="navigation js-filter-pagination">
+                {{ knp_pagination_render(ads) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

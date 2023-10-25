@@ -1,0 +1,44 @@
+{% for ad in ads %}
+
+    <div class="col">
+        <div class="card h-100">
+            {% if ad.pictures is not empty %}
+                {% if ad.pictures|length > 1 %}
+                    <div id="carouselCard" class="carousel slide">
+                        <div class="carousel-inner">
+                            {% for key, picture in ad.pictures %}
+                                <div class="carousel-item {% if key == 0 %} active{% endif %}">
+                                    <img class="image-card w-100 h-35" src="/uploads/{{ picture.path }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Précédent</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCard" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Suivant</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <img class="image-card w-100 h-35" src="/uploads/{{ ad.pictures[0].path}}">
+                {% endif %}
+            {% else %}
+                <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="image-card w-100 h-35" alt="photo du véhicule">
+            {% endif %}
+
+            {# Displaying ad details such as title, vehicle information, and price #}
+            <div class="card-body">
+                <h3 class="card-title">{{ ad.title | upper}}</h3>
+                <p><span class="fw-bold"> {{ ad.car.brand.name | upper}} </span> - {{ ad.car.model | capitalize}}</p>
+                <p>{{ ad.car.gearbox.label | capitalize}} | {{ ad.car.fuel.label | capitalize }} | {{ ad.car.power }} CH
+                <p class="card-text">{{ ad.description | capitalize}}</p>
+                <p class="fw-bold fs-3 text-center"> {{ ad.price }} €</p>
+                <a href="#" class="btn btn-primary"> Contactez-nous</a>
+
+            </div>
+        </div>
+    </div>
+
+{% endfor %}

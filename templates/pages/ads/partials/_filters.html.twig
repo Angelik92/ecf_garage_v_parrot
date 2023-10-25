@@ -1,0 +1,42 @@
+<div>
+    <h3>Filtres</h3>
+    {{ form_start(form, {'attr': {'class':'filters js-filter-form '} })  }}
+    <div class="row">
+        <div class="col-12">
+            {{ form_row(form.quickSearch) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            {{ form_row(form.brands, {'attr': {'class':'input-group d-flex text-light'} })  }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.gearboxes, {'attr': {'class':'input-group d-flex'} })  }}
+        </div>
+        <div class="col-md-4">
+            {{ form_row(form.fuels, {'attr': {'class':'input-group d-flex'} })  }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.min) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.max) }}
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {{ form_row(form.minKm) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.maxKm) }}
+        </div>
+    </div>
+
+    <button class ="btn btn-primary" type="submit"> Rechercher</button>
+
+    {{ form_end(form) }}
+
+</div>
