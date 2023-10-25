@@ -1,0 +1,74 @@
+{% extends 'base_db.html.twig' %}
+
+{% block title %}Modifier Annonce{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
+        <h1>Modifier annonce</h1>
+
+        {{ form_start(form, {'attr': {'class':'bg-secondary bg-opacity-75 rounded-4 p-5 text-primary fw-medium container'}}) }}
+
+        {{ form_errors(form) }}
+        {{ form_row(form._token) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.title) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.car) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.registration_nb) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {{ form_row(form.built) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.kilometers) }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.price) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.description) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.pictures) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                {{ form_row(form.update_at) }}
+            </div>
+            <div class="col-md-5">
+                {{ form_row(form.update_by) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                {{ include('admin/ads/_delete_form.html.twig') }}
+            </div>
+            <div class="col-md-4">
+                {{ form_row(form.Valider) }}
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-primary" href="{{ path('ads_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
+            </div>
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

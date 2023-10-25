@@ -1,0 +1,64 @@
+<aside class="navbar navbar-expand-lg bd-navbar h-100 bg-secondary bg-opacity-75 rounded-start-4">
+
+    {# Smartphone button for toggling navigation menu  #}
+    <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon text-tertiary fs-6"></span>
+    </button>
+
+
+    <div class="d-flex flex-column flex-shrink-0 p-3 h-100 w-100">
+        {# User information and navigation links #}
+        <div class="collapse navbar-collapse flex-column justify-content-end " id="navbarSupportedContent">
+            {# User-related information and links  #}
+            <ul class="list-unstyled d-flex flex-column align-items-center text-tertiary">
+                <li><h3> Bienvenue {{ app.user.firstname | capitalize }} ! </h3></li>
+                <li><i class="bi bi-person-circle fs-2 "></i></li>
+                <li><a href="{{ path('reset_password_request') }}" >Changer le mot de passe</a> | <a href="{{ path('logout') }}" >Déconnexion</a></li>
+            </ul>
+            <div>
+                <hr>
+            </div>
+
+            {# Navigation menu with dynamic routes #}
+            <ul class="nav nav-pills flex-column mb-auto fs-5 p-3">
+
+                {# Define the routes variable as an object (associative array) containing key-value pairs. #}
+                {% set routes ={
+                    'dashboard': {'label': 'Dashboard', 'path': 'dashboard', 'icon': 'bi bi-speedometer2'},
+                    'home': {'label': 'Accueil', 'path': 'home', 'icon': 'bi bi-house'},
+                    'annonces': {'label': 'Annonces', 'path': 'ads_index', 'icon': 'bi bi-car-front-fill'},
+                    'brands': {'label': 'Marques', 'path': 'brands_index', 'icon': 'bi bi-car-front-fill'},
+                    'modele': {'label': 'Modele', 'path': 'cars_index', 'icon': 'bi bi-car-front-fill'},
+                    'testimonial': {'label': 'Avis', 'path': 'testimonials_index', 'icon': 'bi bi-chat-square-quote'},
+
+                } %}
+
+
+               {% if is_granted('ROLE_ADMIN') %}
+                {% set routes = routes|merge({
+                    'user': {'label': 'Salariés', 'path': 'user_index', 'icon': 'bi bi-people-fill'},
+                    'service': {'label': 'Services', 'path': 'services_index', 'icon': 'bi bi-tools'},
+                    'garage': {'label': 'Garages', 'path': 'garages_index', 'icon': 'bi bi-info-square'}
+
+                }) %}
+                {% endif %}
+
+
+                {% for key, route in routes %}
+                    <li class="nav-item ">
+                        <a href="{{ path(route.path) }}" class="nav-link
+
+                            {% if app.request.get('_route') == route.path %}
+                                active" aria-current="page">
+                            {% else %}
+                                ">
+                            {% endif %}
+
+                        <i class="{{ route.icon }}"></i> {{ route.label }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+
+        </div>
+    </div>
+</aside>

@@ -1,3 +1,28 @@
 
+$primary : #8D0102;
+$secondary: #080A0E;
+$tertiary: #F2F2F2;
 
+$theme-colors:(
+        "primary":$primary,
+        "secondary":  $secondary,
+        "tertiary": $tertiary
+);
+
+$utilities: (
+  property: height,
+  class: h,
+  values: (
+    25: 25%,
+    35: 35%,
+    50: 50%,
+    75: 75%,
+    100: 100%,
+    auto: auto
+  )
+);
+
+@import "~bootstrap-icons/font/bootstrap-icons";
 @import "~bootstrap/scss/bootstrap";
+@import "variables";
+@import "base";

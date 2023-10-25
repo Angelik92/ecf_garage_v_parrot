@@ -1,0 +1,49 @@
+{% extends 'base_db.html.twig' %}
+
+{% block title %}Utilisateur{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex flex-column justify-content-evenly align-items-center text-primary">
+        <h1 class="text-light fw-bold">Utilisateur</h1>
+
+        <table class="table table-primary ">
+            <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Prénom</th>
+                    <td>{{ user.firstname | capitalize }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ user.lastname | upper }}</td>
+                </tr>
+                <tr>
+                    <th>Role</th>
+                    <td>
+                        {% if 'ROLE_ADMIN' in user.roles %}
+                            Administrateur
+                        {% else %}
+                            Utilisateur
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th>Date d'embauche</th>
+                    <td>{{ user.createAt ? user.createAt|date('d-m-Y')}}</td>
+                </tr>
+                <tr>
+                    <th>{{ include('admin/user/_delete_form.html.twig') }}</th>
+                    <td><a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}"><i class="bi bi-person-fill-gear"></i> Modifier</a></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <a class="btn btn-primary" href="{{ path('user_index') }}"><i class="bi bi-arrow-return-left"></i> Retour à la liste</a>
+
+    </div>
+
+{% endblock %}

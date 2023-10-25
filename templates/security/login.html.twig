@@ -1,0 +1,51 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+
+    <section class="login flex-grow-1 d-flex justify-content-center align-items-center ">
+
+        <div class="container bg-secondary bg-opacity-75 rounded-4 text-tertiary p-5">
+            <form method="post" >
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+
+                {% if app.user %}
+                    <div class="mb-3">
+                        Vous êtes déjà connecté {{ app.user.userIdentifier }}, <a href="{{ path('logout') }}">Déconnexion</a>
+                    </div>
+                {% endif %}
+                    <h1 class="h3 mb-3 text-centerl">Connexion</h1>
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                    <label for="inputPassword">Mot de passe</label>
+                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                    <input type="hidden" name="_csrf_token"
+                           value="{{ csrf_token('authenticate') }}"
+                    >
+                    <div class="d-grid gap-4 2 d-md-flex align-items-center justify-content-md-center mt-5 fs-5">
+                        <button class="btn btn-lg btn-primary" type="submit">
+                            Se connecter
+                        </button>
+                        <label>
+                            <input type="checkbox" name="_remember_me" checked>
+                            Se souvenir de moi
+                        </label>
+                        <a href="{{ path('reset_password_request') }}">Mot de passe oublié</a>
+                    </div>
+                </form>
+            </div>
+    </section>
+{% endblock %}

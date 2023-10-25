@@ -1,0 +1,54 @@
+{% extends 'base_db.html.twig' %}
+
+{% block title %}Liste des services{% endblock %}
+
+{% block body %}
+    <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly ">
+        <h1 class="text-light fw-bold">Liste des services</h1>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <table class="table table-primary table-hover table-responsive-md">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th><a class="btn btn-success" href="{{ path('services_new') }}"><i class="bi bi-plus-square"></i> Ajouter un service</a></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for service in services %}
+                <tr>
+                    <td>{{ service.title | upper }}</td>
+                    <td>{{ service.description }}</td>
+                    <td>{{ service.price }}</td>
+                    <td>
+                            <img class="img_mini" src="/uploads/{{ service.pictureFile.getPath() }}">
+                       </td>
+
+                    <td>
+                        <div class="d-grid gap-2 mx-auto">
+                            <a class="btn btn-primary" href="{{ path('services_show', {'id': service.id}) }}"><i class="bi bi-eye"></i> Voir</a>
+                            <a class="btn btn-warning" href="{{ path('services_edit', {'id': service.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Aucun enregistrement n'a été trouvé !</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}
