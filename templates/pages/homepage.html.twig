@@ -63,50 +63,20 @@
         </div>
 
     </section>
-    <section class="testimonial bg-secondary text-tertiary pt-5">
+    <section class="testimonial bg-tertiary text-secondary pt-5">
         <div class="container d-flex flex-column justify-content-center align-items-center">
 
             <h2 class="fw-bold mt-5">Les avis des clients</h2>
             <p class="mt-5 w-75">Pour obtenir une réponse à cette question, qui suscite souvent l'interrogation chez de nombreux d'entre nous, quoi de plus pertinent que de consulter les évaluations et les avis laissés par les clients précédents ?</p>
 
-            <div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
-                {% for testimonial in testimonials %}
-                <div class="col">
-                    <div class="card border border-2 border-tertiary rounded-4">
-                        <div class="row g-0">
-                            <div class="col-md-4 d-flex flex-column align-items-center bg-tertiary rounded-start-4">
-                                <h3 class="fs-3 fw-bold">{{ testimonial.client | capitalize }}</h3>
-                                <p class="fs-3 bg-secondary p-3 text-tertiary rounded-circle d-flex align-items-center justify-content-center">{% if testimonial.service.title == 'Service1' %}
-                                        <i class="bi bi-car-front-fill"></i>
-                                    {% else  %}
-                                        <i class="bi bi-tools"></i>
-                                    {% endif %}
-                                </p>
-                                <p>{{ testimonial.dateofservice | date('d-m-Y')}}</p>
-                                <p>{{ testimonial.rating }}</p>
-                            </div>
-                            <div class="col-md-8 ">
-                                <div class="card-body bg-secondary h-100 w-100 rounded-end-4">
-                                    <h4 class="card-title text-tertiary fs-4 fw-bold">
-                                        {% if testimonial.service.title == 'Service1' %}
-                                            Achat de véhicule
-                                        {% else  %}
-                                            Réparation
-                                        {% endif %}
-                                    </h4>
-                                    <p class="card-text text-tertiary fst-italic">"{{ testimonial.content }}"</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
+            <div class="row">
+                {% include 'pages/testimonials/partials/_testimonials_cards.html.twig' %}
             </div>
 
-            <div class="d-grid gap-5 d-flex justify-content-center">
-                <a href="#" class="btn btn-outline-tertiary my-5"> Voir tous les témoignages</a>
-                <a href="#" class="btn btn-outline-tertiary my-5"> Donner votre avis</a>
-            </div>
+
+            <a href="{{ path('testimonials') }}" class="btn btn-outline-secondary my-5"> Voir tous les témoignages</a>
+
+
 
         </div>
     </section>
