@@ -1,34 +1,42 @@
-{% extends 'base.html.twig' %}
+{% extends 'base2.html.twig' %}
 
 {% block title %}Avis{% endblock %}
 
 {% block body %}
 
+    <!----------- Page for testimonials ----------->
 
-    <div class="container-fluid bg-tertiary text-secondary">
+    <main class="container-fluid bg-tertiary text-secondary h-100 d-flex flex-column justify-content-between align-content-center p-0">
 
+        <!-- Include a partial template for displaying messages and notifications -->
         {% include 'partials/_messages.html.twig' %}
 
-        <section class="container pt-5 d-flex flex-column align-items-center">
-            <h2 class="fw-bold mt-3">Donnez votre avis !</h2>
+        <!----------- Section of the testimonial form ----------->
+        <section class="container d-flex flex-column align-items-center mt-5 ">
+            <h2 class="fw-bold">Donnez votre avis !</h2>
             <p class="mt-3">Cher client, votre opinion compte ! Après l’achat ou la réparation de votre voiture, nous vous invitions à partager votre expérience en laissant un commentaire. Votre avis nous aidera à améliorer nos services. Veuillez noter que tous les commentaires seront modérés par notre équipe. Merci de votre participation.</p>
 
+            <!-- Button to trigger the testimonial modal -->
             <button type="button" class="btn btn-secondary mt-3" data-bs-toggle="modal" data-bs-target="#testimonialModal">
                 <i class="bi bi-pencil-square"></i> Donner votre avis
             </button>
 
+            <!-- Include a partial template for displaying the testimonial submission modal -->
             {% include 'pages/testimonials/partials/_modal.html.twig' %}
 
         </section>
 
-        <section class ="container pt-5">
+        <!----------- Section testimonial card ----------->
+        <section class ="container mt-5">
             <div class="row">
+                <!-- Include a partial template for displaying testimonial cards -->
                 {% include 'pages/testimonials/partials/_testimonials_cards.html.twig' %}
-            </div>
-            <div class="navigation">
-                {{ knp_pagination_render(testimonials) }}
             </div>
         </section>
 
-    </div>
+        <!-- Render the pagination for testimonials -->
+        <section class="navigation mx-auto my-5">
+            {{ knp_pagination_render(testimonials) }}
+        </section>
+    </main>
 {% endblock %}

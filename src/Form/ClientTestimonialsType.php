@@ -34,8 +34,13 @@ class ClientTestimonialsType extends AbstractType
                 'label' => 'La date de service',
                 'data' => new \DateTime('now')
             ])
-            ->add('rating', IntegerType::class, [
-                'label' => 'Note'
+            ->add('rating', HiddenType::class, [
+                'label' => 'Note',
+                'attr' => [
+                    'id' => 'js-rating',
+                    'value' => 0
+
+    ]
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Votre commentaire'

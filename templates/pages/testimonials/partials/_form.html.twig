@@ -1,6 +1,18 @@
-<div class="container bg-light">
-    {{ form_start(form, {'attr': {'class':'bg-light'} }) }}
+<!-- Customer testimonial form -->
+<section class="container">
+    {{ form_start(form) }}
+
+    <!-- Section for star rating -->
+    <div class="stars text-center fs-3">
+        <!-- Loop for star rating, iterating from 1 to 5 -->
+        {% for i in 1..5 %}
+            <!-- Star icon element with data-value attribute -->
+            <i class="bi bi-star js-star-rating" data-value="{{ i }}"></i>
+        {% endfor %}
+    </div>
         {{ form_widget(form) }}
+
+    <!-- Submit button -->
     <button class="btn btn-success"><i class="bi bi-envelope-arrow-up"></i> {{ button_label|default('Envoyer') }}</button>
     {{ form_end(form) }}
-</div>
+</section>
