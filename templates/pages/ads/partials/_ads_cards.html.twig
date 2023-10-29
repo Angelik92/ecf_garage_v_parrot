@@ -8,7 +8,7 @@
                         <div class="carousel-inner">
                             {% for key, picture in ad.pictures %}
                                 <div class="carousel-item {% if key == 0 %} active{% endif %}">
-                                    <img class="image-card w-100 h-35" src="/uploads/{{ picture.path }}">
+                                    <img class="ad__card__image w-100 h-35" src="/uploads/{{ picture.path }}">
                                 </div>
                             {% endfor %}
                         </div>
@@ -22,10 +22,10 @@
                         </button>
                     </div>
                 {% else %}
-                    <img class="image-card w-100 h-35" src="/uploads/{{ ad.pictures[0].path}}">
+                    <img class="ad__card__image w-100 h-35" src="/uploads/{{ ad.pictures[0].path}}">
                 {% endif %}
             {% else %}
-                <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="image-card w-100 h-35" alt="photo du véhicule">
+                <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="ad__card__image w-100 h-35" alt="photo du véhicule">
             {% endif %}
 
             {# Displaying ad details such as title, vehicle information, and price #}
