@@ -4,9 +4,9 @@
 
 
 {% block body %}
-    <div class="bg_ads">
+    <main class="bg_ads h-100">
 
-        <div class="container ads_container js-filter">
+        <div class="container ads_container js-filter mt-5">
 
             {% include 'pages/ads/partials/_filters.html.twig' %}
 
@@ -19,6 +19,6 @@
                 {{ knp_pagination_render(ads) }}
             </div>
         </div>
-    </div>
+    </main>
 
 {% endblock %}
