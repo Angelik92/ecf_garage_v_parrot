@@ -1,0 +1,57 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Annonce {{ ad.title }}{% endblock %}
+
+
+{% block body %}
+    <main class="container-fluid bg_ads h-100 text-tertiary d-flex flex-column justify-content-around align-items-center">
+        <div class="container bg-secondary bg-opacity-50 rounded-4 text-tertiary m-5">
+            <h1 class="text-center mt-5"> Annonce {{ ad.title }}</h1>
+
+            <section class="container h-50 p-5">
+             {% if ad.pictures is not empty %}
+                {% if ad.pictures|length > 1 %}
+                    <div id="carouselCard" class="carousel slide">
+                        <div class="carousel-inner">
+                            {% for key, picture in ad.pictures %}
+                                <div class="carousel-item {% if key == 0 %} active{% endif %}">
+                                    <img class="ad__card__image w-100 h-50" src="/uploads/{{ picture.path }}">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselCard" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Précédent</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselCard" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Suivant</span>
+                        </button>
+                    </div>
+                {% else %}
+                    <img class="ad__card__image w-100 h-50" src="/uploads/{{ ad.pictures[0].path}}">
+                {% endif %}
+            {% else %}
+                <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="ad__card__image w-100 h-50" alt="photo du véhicule">
+            {% endif %}
+                <h3 class="mt-5">{{ ad.car.brand.name | upper}} {{ ad.car.model | upper}}</h3>
+                <ul>
+                    <li>Boite de vitesse : {{ ad.car.gearbox.label }} </li>
+                    <li>Puissance : {{ ad.car.power }} CH</li>
+                    <li>Année de construction : {{ ad.built}}</li>
+                    <li>Nombre de kilomètres : {{ ad.kilometers }}</li>
+                    <li>Prix : {{ ad.price }} €</li>
+                    <li>Mise en ligne le {{ ad.createAt|date('d-m-Y') }}</li>
+                    <li>Description : {{ ad.description }}</li>
+                </ul>
+
+            </section>
+
+            <section class="container p-5">
+                {% include 'pages/ads/partials/_form.html.twig' %}
+            </section>
+
+        </div>
+    </main>
+
+{% endblock %}

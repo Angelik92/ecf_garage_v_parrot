@@ -1,0 +1,24 @@
+<div class="modal fade" id="testimonialModal" tabindex="-1" aria-labelledby="testimonialModal" aria-hidden="true">
+    <!-- Modal dialog for submitting customer testimonials -->
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <!-- Modal title -->
+                <h2 class="modal-title fs-5 fw-bold" id="testimonialModal"> Donnez votre avis</h2>
+                <!-- Close button for the modal -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Include the testimonial submission form from a separate Twig template -->
+                {% include 'pages/testimonials/partials/_form.html.twig' %}
+            </div>
+
+            <div class="modal-footer">
+                <!-- Close button to dismiss the modal -->
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

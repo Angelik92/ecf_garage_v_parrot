@@ -60,8 +60,7 @@ class AdsCrudController extends AbstractController
 
                 // Persist Pictures entity
                 $entityManager->persist($picturePath);
-            }
-           ;
+            };
             // Persist Ads entity
             $entityManager->persist($ad);
             $entityManager->flush();

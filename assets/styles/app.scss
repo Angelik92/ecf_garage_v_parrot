@@ -2,11 +2,14 @@
 $primary : #8D0102;
 $secondary: #080A0E;
 $tertiary: #F2F2F2;
+$success: #275932;
+
 
 $theme-colors:(
         "primary":$primary,
         "secondary":  $secondary,
-        "tertiary": $tertiary
+        "tertiary": $tertiary,
+        "success": $success,
 );
 
 $utilities: (

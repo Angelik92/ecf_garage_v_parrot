@@ -69,7 +69,7 @@ class Testimonials
     #[ORM\ManyToOne(inversedBy: 'testimonials')]
     private ?User $moderator = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: false)]
     private ?bool $create_by_phone = null;
 
     public function getId(): ?int

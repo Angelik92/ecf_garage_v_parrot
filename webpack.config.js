@@ -22,6 +22,8 @@ Encore
      */
     .addEntry('app', './assets/app.js')
     .addEntry('app-db', './assets/app-db.js')
+    .addEntry('rating', './assets/javascript/rating.js')
+    .addEntry('showRating', './assets/javascript/showRating.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
