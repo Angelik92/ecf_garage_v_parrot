@@ -4,15 +4,18 @@ namespace App\Controller;
 
 use App\Data\FiltersData;
 
+use App\Entity\Ads;
+use App\Form\AdsContactType;
 use App\Form\FiltersAdsType;
 use App\Repository\AdsRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
+use App\Services\MailerService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class AdsController extends AbstractController
 {
@@ -40,5 +43,43 @@ class AdsController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+
+    #[Route('/annonces/{id}', name: 'ads_info', methods: ['GET','POST'])]
+    public function info(Ads $ad, Request $request, MailerService $mailerService): Response
+    {
+      
+            $form = $this->createForm(AdsContactType::class, $ad);
+            $form->get('comment')->setData('Bonjour. Je souhaite avoir des informations complémentaires concernant le véhicule ' . $ad->getCar() . ' Cordialement.');
+            $form -> handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $firstname= $form->get('firstname')->getData();
+                $lastname = $form->get('lastname')->getData();
+                $customerEmail = $form->get('customerEmail')->getData();
+                $phoneNumber = $form->get('phoneNumber')->getData();
+                $subject = $form->get('subject')->getData();
+                $comment = $form->get('comment')->getData();
+
+                $mailerService->sendMail('garage@gvp.fr', 'contact@gvp.fr', $subject, '@email_templates/ad_info.html.twig', [
+                    'firstname' => $firstname,
+                    'lastname' => $lastname,
+                    'customerEmail' => $customerEmail,
+                    'phoneNumber' => $phoneNumber,
+                    'comment' => $comment
+
+                ]);
+                $this->addFlash('success', 'Votre message a été envoyé ! ');
+                return $this->redirectToRoute('ads', [], Response::HTTP_SEE_OTHER);
+                // If the form was submitted but is not valid, add an error flash message
+            } else if($form->isSubmitted() && !$form->isValid()) {
+                $this->addFlash('error', 'Attention ! Votre message n\'a pas été envoyé. ');
+            }
+
+            return $this->render('pages/ads/info.html.twig', [
+                'ad' => $ad,
+                'form' => $form
+            ]);
+        }
 
 }

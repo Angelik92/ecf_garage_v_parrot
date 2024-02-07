@@ -35,13 +35,13 @@ class FiltersAdsType extends AbstractType
                 'required' => false
             ])
             ->add('min', IntegerType::class, [
-                'label' => 'Prix',
+                'label' => false,
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'minimum'
                 ]
             ]) ->add('max', IntegerType::class, [
-                'label' => 'Prix',
+                'label' => false,
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'maximum'
@@ -66,14 +66,14 @@ class FiltersAdsType extends AbstractType
                 'required' => false
             ])
             ->add('minKm', IntegerType::class,[
-                'label' => 'Nombre km',
+                'label' => false,
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'minimum'
                 ]
             ])
             ->add('maxKm', IntegerType::class,[
-                'label' => 'Nombre km',
+                'label' => false,
                 'required' => false,
                 'attr' => [
                     'placeholder' => 'maximum'

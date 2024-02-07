@@ -35,7 +35,7 @@
                 <p>{{ ad.car.gearbox.label | capitalize}} | {{ ad.car.fuel.label | capitalize }} | {{ ad.car.power }} CH
                 <p class="card-text">{{ ad.description | capitalize}}</p>
                 <p class="fw-bold fs-3 text-center"> {{ ad.price }} €</p>
-                <a href="#" class="btn btn-primary"> Contactez-nous</a>
+                <a href="{{ path('ads_info', {'id': ad.id}) }}" class="btn btn-primary">Contactez-nous</a>
 
             </div>
         </div>
