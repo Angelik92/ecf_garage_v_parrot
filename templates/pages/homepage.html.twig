@@ -29,7 +29,7 @@
                         <div class="service__card ">
                             <div class="service__card__inner">
                                 <div class="card service__card__front">
-                                    <img src="{{ asset('build/images/pneu.png')}}" class="card-img bg-image" alt="...">
+                                    <img src="/uploads/{{ service.pictureFile.getPath() }}" class="card-img bg-image" alt="...">
                                     <div class=" card-img-overlay text-primary fw-bold d-flex flex-column justify-content-around align-items-center">
                                         <h3 class="fw-bolder">{{ service.title | upper}}</h3>
                                         <p>A partir de {{ service.price | default('sur devis') }} €</p>
