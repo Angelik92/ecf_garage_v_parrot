@@ -1,0 +1,25 @@
+<div class="modal fade " id="servicesModal" tabindex="-1" aria-labelledby="serviceModal" aria-hidden="true">
+
+    <!-- Modal dialog for submitting customer services -->
+    <div class="modal-dialog ">
+        <div class="modal-content bg-secondary rounded-4">
+            <div class="modal-header">
+
+                <!-- Modal title -->
+                <h2 class="modal-title fs-5 text-tertiary fw-bold" id="serviceModal"> Besoin d'informations complémentaires ? </h2>
+                <!-- Close button for the modal -->
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Include a partial model for displaying the modal for requesting information about a service -->
+                {% include 'pages/services/partials/_form.html.twig' %}
+            </div>
+
+            <div class="modal-footer">
+                <!-- Close button to dismiss the modal -->
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><i class="bi bi-x-square"></i> Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>

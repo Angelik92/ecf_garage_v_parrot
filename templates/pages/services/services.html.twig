@@ -4,6 +4,7 @@
 
 {% block body %}
     <main class= "container mt-5 d-flex flex-column align-items-center">
+        {% include 'partials/_messages.html.twig' %}
         <h1 class="fw-bold">Services</h1>
         {% for service in services %}
             <article class="card border-primary my-3 ">
@@ -26,7 +27,12 @@
                 </div>
             </article>                                           
         {% endfor %}
-            <a href="#" class="btn btn-primary my-5">Demande d'information</a>
+
+         <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#servicesModal">
+            <i class="bi bi-pencil-square"></i> Demande d'informations
+        </button>
+            <!-- Include a partial model for displaying the modal for requesting information about a service -->
+            {% include 'pages/services/partials/_modal.html.twig' %}
     </main>
 {% endblock %}
 

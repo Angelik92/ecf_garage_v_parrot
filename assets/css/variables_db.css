@@ -1,0 +1,28 @@
+body {
+  background-image: linear-gradient(rgba(91, 119, 141, 0.537254902), rgba(91, 119, 141, 0.537254902)), url("/assets/images/background_db.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.container-db {
+  width: 98%;
+  height: 95%;
+}
+
+.img_mini {
+  width: 100px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.image-card {
+  width: 400px;
+  height: 200px;
+  object-fit: cover;
+}
+
+.service__card {
+  width: 320px;
+  height: 320px;
+}/*# sourceMappingURL=variables_db.css.map */
