@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SchedulesRepository;
+use App\Entity\Enumerate\Days;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SchedulesRepository::class)]
@@ -13,14 +14,15 @@ class Schedules
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $day = null;
-
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $morning_schedule = null;
 
     #[ORM\Column(length: 50, nullable: true)]
     private ?string $afternoon_schedule = null;
+
+    #[ORM\Column(enumType: Days::class)]
+    private ?string $day = null;
+
 
     public function getId(): ?int
     {
@@ -32,11 +34,9 @@ class Schedules
         return $this->day;
     }
 
-    public function setDay(string $day): static
+    public function setDay(Days $day): void
     {
-        $this->day = $day;
-
-        return $this;
+        $this->day = $day->value;
     }
 
     public function getMorningSchedule(): ?string
