@@ -9,9 +9,11 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/dashboard/horaires')]
+#[IsGranted('ROLE_ADMIN')]
 class SchedulesCrudController extends AbstractController
 {
     #[Route('/', name: 'schedules_index', methods: ['GET'])]
@@ -22,25 +24,6 @@ class SchedulesCrudController extends AbstractController
         ]);
     }
 
-    #[Route('/nouveau', name: 'schedules_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-        $schedule = new Schedules();
-        $form = $this->createForm(SchedulesType::class, $schedule);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($schedule);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('schedules_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('admin/schedules/new.html.twig', [
-            'schedule' => $schedule,
-            'form' => $form,
-        ]);
-    }
 
     #[Route('/{id}', name: 'schedules_show', methods: ['GET'])]
     public function show(Schedules $schedule): Response
@@ -58,24 +41,15 @@ class SchedulesCrudController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-
+            $this->addFlash('success', 'Les horaires ont été modifiées ! ');
             return $this->redirectToRoute('schedules_index', [], Response::HTTP_SEE_OTHER);
+        } elseif ($form->isSubmitted() && !$form->isValid()) {
+            $this->addFlash('danger', 'Les horaires n\'ont pas été modifiées');
         }
 
         return $this->render('admin/schedules/edit.html.twig', [
             'schedule' => $schedule,
             'form' => $form,
         ]);
-    }
-
-    #[Route('/{id}', name: 'schedules_delete', methods: ['POST'])]
-    public function delete(Request $request, Schedules $schedule, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete' . $schedule->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($schedule);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('schedules_index', [], Response::HTTP_SEE_OTHER);
     }
 }

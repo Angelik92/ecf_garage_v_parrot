@@ -30,7 +30,7 @@
                     'brands': {'label': 'Marques', 'path': 'brands_index', 'icon': 'bi bi-car-front-fill'},
                     'modele': {'label': 'Modele', 'path': 'cars_index', 'icon': 'bi bi-car-front-fill'},
                     'testimonial': {'label': 'Avis', 'path': 'testimonials_index', 'icon': 'bi bi-chat-square-quote'},
-
+                    
                 } %}
 
 
@@ -38,7 +38,8 @@
                 {% set routes = routes|merge({
                     'user': {'label': 'Salariés', 'path': 'user_index', 'icon': 'bi bi-people-fill'},
                     'service': {'label': 'Services', 'path': 'services_index', 'icon': 'bi bi-tools'},
-                    'garage': {'label': 'Garages', 'path': 'garages_index', 'icon': 'bi bi-info-square'}
+                    'garage': {'label': 'Garages', 'path': 'garages_index', 'icon': 'bi bi-info-square'},
+                    'schedule': {'label': 'Horaires', 'path': 'schedules_index', 'icon': 'bi bi-clock'},
 
                 }) %}
                 {% endif %}

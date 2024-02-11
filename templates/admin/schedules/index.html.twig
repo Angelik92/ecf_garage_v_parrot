@@ -1,39 +1,41 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_db.html.twig' %}
 
-{% block title %}Schedules index{% endblock %}
+{% block title %}Les horaires{% endblock %}
 
 {% block body %}
-    <h1>Schedules index</h1>
+    <main class="container-fluid d-flex flex-column align-items-center justify-content-evenly ">
+        
+        {% include 'partials/_messages.html.twig' %}
+        
+        <h1 class="text-light fw-bold" >Les horaires</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Morning_schedule</th>
-                <th>Afternoon_schedule</th>
-                <th>Day</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for schedule in schedules %}
-            <tr>
-                <td>{{ schedule.id }}</td>
-                <td>{{ schedule.morningSchedule }}</td>
-                <td>{{ schedule.afternoonSchedule }}</td>
-                <td>{{ schedule.day }}</td>
-                <td>
-                    <a href="{{ path('schedules_show', {'id': schedule.id}) }}">show</a>
-                    <a href="{{ path('schedules_edit', {'id': schedule.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <table class="table table-primary table-hover table-responsive-md">
+            <thead>
+                <tr>
+                    <th>Jour</th>
+                    <th>Horaires du matin ou journée sans fermeture</th>
+                    <th>Horaires de l'après midi</th>      
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for schedule in schedules %}
+                <tr>
+                    <td>{{ schedule.day.value }}</td>
+                    <td>{{ schedule.morningSchedule }}</td>
+                    <td>{{ schedule.afternoonSchedule }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="{{ path('schedules_show', {'id': schedule.id}) }}"><i class="bi bi-eye"></i> Voir</a>
+                        <a class="btn btn-warning" href="{{ path('schedules_edit', {'id': schedule.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Horaires non trouvés</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <a href="{{ path('schedules_new') }}">Create new</a>
+    </main>
 {% endblock %}

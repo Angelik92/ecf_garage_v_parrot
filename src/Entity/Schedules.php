@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\SchedulesRepository;
 use App\Entity\Enumerate\Days;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Console\Descriptor\ReStructuredTextDescriptor;
 
 #[ORM\Entity(repositoryClass: SchedulesRepository::class)]
 class Schedules
@@ -21,7 +22,7 @@ class Schedules
     private ?string $afternoon_schedule = null;
 
     #[ORM\Column(enumType: Days::class)]
-    private ?string $day = null;
+    private ?Days $day = null;
 
 
     public function getId(): ?int
@@ -29,14 +30,14 @@ class Schedules
         return $this->id;
     }
 
-    public function getDay(): ?string
+    public function getDay(): ?Days
     {
         return $this->day;
     }
 
-    public function setDay(Days $day): void
+    public function setDay(?Days $day): void
     {
-        $this->day = $day->value;
+        $this->day = $day;
     }
 
     public function getMorningSchedule(): ?string
