@@ -1,0 +1,51 @@
+{% set footerData = data() %}
+
+<div class="container-fluid bg-secondary">
+    <footer class=" container py-5">
+        <div class="row">
+            <div class="col-6 col-md-4 mb-3">
+                <h5 class="text-primary">Plan du site</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2"><a href="{{ path('home') }}" class="nav-link p-2 text-tertiary">Accueil</a></li>
+                    <li class="nav-item mb-2"><a href="{{ path('services') }}" class="nav-link p-2 text-tertiary">Services</a></li>
+                    <li class="nav-item mb-2"><a href="{{ path('ads') }}" class="nav-link p-2 text-tertiary">Annonces</a></li>
+                    <li class="nav-item mb-2"><a href="{{ path('testimonials') }}" class="nav-link p-2 text-tertiary">Avis</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-2 text-tertiary">Contact</a></li>
+                    <li class="nav-item mb-2"><a href="#" class="nav-link p-2 text-tertiary">Légal</a></li>
+                </ul>
+            </div>
+    
+
+
+        {% for garage in footerData.garages %}
+            <div class="col-6 col-md-4 ">
+                <h5 class="text-primary">{{ garage.name }}</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item text-tertiary m-3">{{ garage.address }}</li>
+                    <li class="nav-item text-tertiary m-3">{{ garage.zipCode }} {{ garage.city | upper}}</li>
+                    <li class="nav-item text-tertiary m-3">{{ garage.phone }}</li>
+                </ul>
+                <a class="btn btn-primary" href="#">Contactez nous</a>
+            </div>
+        {% endfor %}
+            
+
+        
+            <div class="col-6 col-md-4 ">
+                <h5 class="text-primary">Horaires</h5>
+                <ul class="nav flex-column">
+
+                {% for schedule in footerData.schedules %}
+                    <li class="nav-item text-tertiary">{{ schedule.day.value }} : {{ schedule.morningSchedule }} / {{ schedule.afternoonSchedule }}</li>
+                {% endfor %}
+
+                </ul>
+            </div>
+        </div>
+    
+        <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
+            <p class="text-tertiary">© 2024 Garage V Parrot.</p>
+        </div>
+    </div>
+  </footer>
+</div>
