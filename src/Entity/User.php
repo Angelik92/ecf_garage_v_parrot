@@ -30,7 +30,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         min: 10,
         max: 180,
         minMessage: 'L\'email doit contenir au moins {{ limit }} lettres',
-        maxMessage: 'L\'email doit contenir au maximum {{limit}} lettres.')]
+        maxMessage: 'L\'email doit contenir au maximum {{limit}} lettres.'
+    )]
     #[Assert\Email(message: '{{ value }} n\'est pas une adresse valide ! ')]
     private ?string $email = null;
 
@@ -41,8 +42,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[Assert\NotBlank(message:'Veuillez renseigner un mot de passe')]
-    #[Assert\Length(min:8, minMessage:'Le mot de passe doit faire au minimum {{ limit }} caractères')]
+    #[Assert\NotBlank(message: 'Veuillez renseigner un mot de passe')]
+    #[Assert\Length(min: 8, minMessage: 'Le mot de passe doit faire au minimum {{ limit }} caractères')]
+    #[Assert\Regex(
+        pattern: '/(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}/',
+        message: 'Votre mot de passe doit contenir au minimum 8 caractères, une majuscule, une minuscule et un chiffre'
+    )]
     private ?string $password = null;
 
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Ads::class)]
@@ -59,11 +64,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         min: 2,
         max: 100,
         minMessage: 'Le prénom doit contenir au moins {{limit}} lettres',
-        maxMessage: 'Le prénom doit contenir au maximum {{limit}} lettres.')]
+        maxMessage: 'Le prénom doit contenir au maximum {{limit}} lettres.'
+    )]
     #[Assert\NotBlank(message: 'Veuillez remplir le champ prénom')]
     #[Assert\Regex(
         pattern: '/^[a-zA-ZÀ-ÖØ-öø-ÿ\s-]+$/u',
-        message: 'Le prénom ne peut contenir que des lettres.')]
+        message: 'Le prénom ne peut contenir que des lettres.'
+    )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 50)]

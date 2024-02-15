@@ -21,7 +21,7 @@ class HomeController extends AbstractController
         $testimonials = $testimonialsRepository->findBy(['approved' => 1], ['id' => 'DESC'], 6);
 
 
-        return $this->render('pages/homepage.html.twig', [
+        return $this->render('pages/homepage/homepage.html.twig', [
             'services' => $services,
             'ads' => $ads,
             'testimonials' => $testimonials

@@ -1,0 +1,11 @@
+    <section class="testimonial bg-tertiary text-secondary pt-5">
+        <div class="container d-flex flex-column justify-content-center align-items-center">
+
+            <h2 class="fw-bold mt-5">Les avis des clients</h2>
+            <p class="mt-5 w-75">Pour obtenir une réponse à cette question, qui suscite souvent l'interrogation chez de nombreux d'entre nous, quoi de plus pertinent que de consulter les évaluations et les avis laissés par les clients précédents ?</p>
+
+            <div class="row">
+                {% include 'pages/testimonials/partials/_testimonials_cards.html.twig' %}
+            </div>
+     <a href="{{ path('testimonials') }}" class="btn btn-outline-secondary my-5"> Voir tous les témoignages</a>
+    </section>

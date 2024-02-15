@@ -8,6 +8,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+        <meta name="description" content="Projet d'étude pour l'ECF de l'école STUDI. Garage V Parrot -- Votre partenaire de confiance pour la vente, l'entretien et la réparation de véhicules. Spécialistes en mécanique générale, diagnostic électronique, entretien préventif et réparation de toutes marques. Contactez-nous dès maintenant pour des services professionnels et fiables."
+        
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -19,5 +21,6 @@
     <body>
         {% include 'partials/_header.html.twig' %}
         {% block body %}{% endblock %}
+        {% include 'partials/_footer.html.twig' %}
     </body>
 </html>

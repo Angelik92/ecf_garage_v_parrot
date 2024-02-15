@@ -1,0 +1,32 @@
+{% extends 'base2.html.twig' %}
+
+{% block title %}Informations{% endblock %}
+
+{% block body %}
+    <main class="bg_ads h-100 py-5">
+
+        
+
+        <h1 class="fw-bold text-tertiary text-center">Informations</h1>
+
+        <div class= "constainer ">
+            <div class= "row">
+                <section class= "col-12 col-lg-6 d-flex flex-column text-center p-5">
+                    <h2 class="fw-bold text-tertiary">Nos coordonnées</h2>
+                        {% for garage in garages %}
+                            <h3 class="fw-bold text-tertiary">{{ garage.name }}</h3>
+                            <p class="text-tertiary">{{ garage.address }}</p>
+                            <p class="text-tertiary">{{ garage.zipCode }} {{ garage.city | upper }}</p>
+                            <p class="text-tertiary">Tel : {{ garage.phone }} </p>
+                        {% endfor %}
+                    <div class="mapouter p-5"><div class="gmap_canvas"><iframe width="400" height="400" id="gmap_canvas" src="https://maps.google.com/maps?q=%2031000%20toulouse&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://embedgooglemap.net/124/">123movies</a><br><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}</style><a href="https://www.embedgooglemap.net">embed google maps on website</a><style>.gmap_canvas {overflow:hidden;background:none!important;height:400px;width:400px;}</style></div></div>
+                </section>
+                <section class= "col-12 col-lg-6 p-5">
+                    {% include 'partials/_messages.html.twig' %}
+                    {% include 'pages/informations/partials/_form.html.twig' %}
+                </section>
+            </div>
+        </div>
+
+    </main>
+{% endblock %}

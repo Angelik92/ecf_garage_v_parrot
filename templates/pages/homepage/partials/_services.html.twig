@@ -1,0 +1,31 @@
+<section class="service pt-5 bg-tertiary text-secondary">
+        <div class="container d-flex flex-column justify-content-center align-items-center pb-5">
+            <h2 class="fw-bold mt-5"> Les services proposés</h2>
+            <p class="mt-3 w-75">Pour une conduite en toute sécurité, il est essentiel de planifier régulièrement l'entretien de votre véhicule. Au garage V PARROT, nous vous offrons des forfaits compétitifs pour assurer le bon fonctionnement de votre auto grâce à des révisions périodiques.</p>
+            <div class = "row d-flex justify-content-around mt-4">
+
+                {# Iterates through a list of services and displays information about each service #}
+
+                {% for service in services %}
+                    <div class="col-sm-12 col-md-6 col-lg-3 mt-5">
+                        <div class="service__card ">
+                            <div class="service__card__inner">
+                                <div class="card service__card__front">
+                                    <img src="/uploads/{{ service.pictureFile.getPath() }}" class="card-img bg-image" alt="...">
+                                    <div class=" card-img-overlay text-primary fw-bold d-flex flex-column justify-content-around align-items-center">
+                                        <h3 class="fw-bolder">{{ service.title | upper}}</h3>
+                                        <p>A partir de {{ service.price | default('sur devis') }} €</p>
+                                    </div>
+                                </div>
+                                <div class="card service__card__end bg-secondary p-3">
+                                    <p class="text-tertiary">{{ service.description }}</p>
+                                    <a href="{{ path('services') }}" class="btn btn-outline-primary">Demande d'information</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <a href="{{ path('services') }}" class="btn btn-outline-primary d-block mt-5">Demande d'information</a>
+        </div>
+    </section>
