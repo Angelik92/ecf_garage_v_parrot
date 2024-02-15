@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Bienvenue!{% endblock %}
+
+{% block body %} 
+
+    {# --------------- section hero --------------- #}
+
+    {% include 'pages/homepage/partials/_hero.html.twig' %}
+
+    {# --------------- section service --------------- #}
+
+    
+    {% include 'pages/homepage/partials/_services.html.twig' %}
+    
+
+    {# --------------- section ads --------------- #}
+
+
+    {% include 'pages/homepage/partials/_ads.html.twig' %}
+
+    {# --------------- section testimonials --------------- #}
+
+    {% include 'pages/homepage/partials/_testimonials.html.twig' %}
+
+
+{% endblock %}

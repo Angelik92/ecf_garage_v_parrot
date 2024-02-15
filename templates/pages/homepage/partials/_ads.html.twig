@@ -1,0 +1,12 @@
+    <section class="ads pt-5">
+        <div class="container d-flex flex-column justify-content-center align-items-center text-tertiary">
+            <h2 class="fw-bold mt-5"> Les dernières annonces</h2>
+            <p class="mt-3 w-75">Ne manquez pas nos dernières offres exceptionnelles sur les véhicules d'occasion ! Venez dès maintenant dans notre garage et profitez des meilleures opportunités pour trouver votre prochaine voiture.</p>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+                {% include 'pages/ads/partials/_ads_cards.html.twig' %}
+            </div>
+            <a href="{{ path('ads') }}" class="btn btn-outline-tertiary my-5"> Voir toutes les annonces</a>
+        </div>
+
+    </section>
