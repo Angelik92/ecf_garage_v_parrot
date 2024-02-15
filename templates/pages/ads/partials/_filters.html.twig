@@ -8,25 +8,27 @@
     <div class="row">
 
         <div class="col-md-4">
-            {{ form_row(form.brands, {'attr': {'class':'input-group d-flex text-light'} })  }}
+            {{ form_row(form.brands, {'attr': {'class':'input-group d-flex justify-content-between text-light'} })  }}
+        </div>
+        
+        <div class="col-md-4">
+            {{ form_row(form.gearboxes, {'attr': {'class':'input-group d-flex justify-content-between'} })  }}
         </div>
         <div class="col-md-4">
-            {{ form_row(form.gearboxes, {'attr': {'class':'input-group d-flex'} })  }}
-        </div>
-        <div class="col-md-4">
-            {{ form_row(form.fuels, {'attr': {'class':'input-group d-flex'} })  }}
+            {{ form_row(form.fuels, {'attr': {'class':'input-group d-flex justify-content-between'} })  }}
         </div>
     </div>
+    
     <div class="row">
         <h4 class="fw-bold">Prix</h4>
         <div class="col-md-6">
-            {{ form_row(form.min) }}
+            {{ form_row(form.min) }} 
         </div>
         <div class="col-md-6">
-            {{ form_row(form.max) }}
+            {{ form_row(form.max) }} 
         </div>
-
     </div>
+
     <div class="row">
         <h4 class="fw-bold">Nombre de kilomètres</h4>
         <div class="col-md-6">

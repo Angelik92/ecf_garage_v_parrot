@@ -8,14 +8,14 @@
         <div class="container bg-secondary bg-opacity-50 rounded-4 text-tertiary m-5">
             <h1 class="text-center mt-5"> Annonce {{ ad.title }}</h1>
 
-            <section class="container h-50 p-5">
+            <section class="container p-5">
              {% if ad.pictures is not empty %}
                 {% if ad.pictures|length > 1 %}
                     <div id="carouselCard" class="carousel slide">
                         <div class="carousel-inner">
                             {% for key, picture in ad.pictures %}
                                 <div class="carousel-item {% if key == 0 %} active{% endif %}">
-                                    <img class="ad__card__image w-100 h-50" src="/uploads/{{ picture.path }}">
+                                    <img class="ad__card__image" src="/uploads/{{ picture.path }}">
                                 </div>
                             {% endfor %}
                         </div>
@@ -36,13 +36,13 @@
             {% endif %}
                 <h3 class="mt-5">{{ ad.car.brand.name | upper}} {{ ad.car.model | upper}}</h3>
                 <ul>
-                    <li>Boite de vitesse : {{ ad.car.gearbox.label }} </li>
-                    <li>Puissance : {{ ad.car.power }} CH</li>
-                    <li>Année de construction : {{ ad.built}}</li>
-                    <li>Nombre de kilomètres : {{ ad.kilometers }}</li>
-                    <li>Prix : {{ ad.price }} €</li>
-                    <li>Mise en ligne le {{ ad.createAt|date('d-m-Y') }}</li>
-                    <li>Description : {{ ad.description }}</li>
+                    <li><b>Boite de vitesse : </b>{{ ad.car.gearbox.label | capitalize}} </li>
+                    <li><b>Puissance : </b> {{ ad.car.power }} CH</li>
+                    <li><b>Année de construction : </b>{{ ad.built}}</li>
+                    <li><b>Nombre de kilomètres : </b> {{ ad.kilometers }}</li>
+                    <li><b>Prix :</b> {{ ad.price }} €</li>
+                    <li><b>Mise en ligne le :</b>{{ ad.createAt|date('d-m-Y') }}</li>
+                    <li><b>Description : </b>{{ ad.description }}</li>
                 </ul>
 
             </section>
