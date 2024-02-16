@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
@@ -27,19 +28,20 @@ class ResetPasswordController extends AbstractController
         $limiter = $passwordRecovery->create($request->getClientIp());
 
         // Check if rate limit is exceeded
-        if (false === $limiter->consume(1)->isAccepted()){
-            throw new TooManyRequestsHttpException();
+        if (false === $limiter->consume(1)->isAccepted()) {
+
             // Display an error message and redirect to the login page
             $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative.');
             return $this->redirectToRoute('login');
+            throw new TooManyRequestsHttpException();
         }
 
         // Find the reset password entity based on the provided token
         $resetPassword = $resetPasswordRepository->findOneBy(['token' => sha1($token)]);
 
         // Check if the reset password entity exists and if it has expired
-        if(!$resetPassword || $resetPassword->getExpiredAt() < new \DateTime('now')) {
-            if($resetPassword) {
+        if (!$resetPassword || $resetPassword->getExpiredAt() < new \DateTime('now')) {
+            if ($resetPassword) {
                 // Remove the expired reset password entity
                 $entityManager->remove($resetPassword);
                 $entityManager->flush();
@@ -50,14 +52,14 @@ class ResetPasswordController extends AbstractController
         }
         // Create the password reset form
         $passwordForm = $this->createFormBuilder()
-            ->add('password', PasswordType::class,[
+            ->add('password', PasswordType::class, [
                 'constraints' => [
                     new Length([
-                        'min'=>8,
-                        'minMessage'=>'Le mot de passe doit faire au minimum 8 caractères'
+                        'min' => 8,
+                        'minMessage' => 'Le mot de passe doit faire au minimum 8 caractères'
                     ]),
                     new NotBlank([
-                        'message'=>'Veuillez renseigner un mot de passe'
+                        'message' => 'Veuillez renseigner un mot de passe'
                     ])
                 ]
             ])
@@ -66,7 +68,7 @@ class ResetPasswordController extends AbstractController
         // Handle the submitted password form
         $passwordForm->handleRequest($request);
 
-        if($passwordForm->isSubmitted() && $passwordForm->isValid()) {
+        if ($passwordForm->isSubmitted() && $passwordForm->isValid()) {
 
             // Get the submitted password
             $password = $passwordForm->get('password')->getData();
@@ -78,7 +80,7 @@ class ResetPasswordController extends AbstractController
 
             // Remove the reset password entity
             $entityManager->remove($resetPassword);
-            $entityManager -> flush();
+            $entityManager->flush();
 
             // Add a success flash message and redirect to the login page
             $this->addFlash('success', 'Votre mot de passe a été modifié');
@@ -95,9 +97,10 @@ class ResetPasswordController extends AbstractController
     public function resetPasswordRequest(RateLimiterFactory $passwordRecovery, Request $request, UserRepository $userRepository, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
         $limiter = $passwordRecovery->create($request->getClientIp());
-        if (false === $limiter->consume(1)->isAccepted()){
-            throw new TooManyRequestsHttpException();
+        if (false === $limiter->consume(1)->isAccepted()) {
+
             $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative.');
+            throw new TooManyRequestsHttpException();
             return $this->redirectToRoute('login');
         }
 
@@ -108,21 +111,21 @@ class ResetPasswordController extends AbstractController
                     'message' => 'Veuillez renseigner votre email'
                 ])
             ]
-        ])-> getForm();
+        ])->getForm();
 
         // Handle the submitted form
         $emailForm->handleRequest($request);
 
         if ($emailForm->isSubmitted() && $emailForm->isValid()) {
             // Get the submitted email
-            $emailValue =$emailForm->get('email')->getData();
+            $emailValue = $emailForm->get('email')->getData();
 
             // Find the user by email
             $user = $userRepository->findOneBy(['email' => $emailValue]);
             if ($user) {
                 // Remove any existing reset password token for the user
-                $oldResetPassword = $resetPasswordRepository->findOneBy(['user'=> $user]);
-                if($oldResetPassword){
+                $oldResetPassword = $resetPasswordRepository->findOneBy(['user' => $user]);
+                if ($oldResetPassword) {
                     $entityManager->remove($oldResetPassword);
                     $entityManager->flush();
                 }
@@ -136,17 +139,16 @@ class ResetPasswordController extends AbstractController
 
                 // Generate a random token value
                 $token = substr(str_replace(['+', '/', '='], '', base64_encode(random_bytes(30))), 0, 20);
-                $hash=sha1($token);
+                $hash = sha1($token);
                 $resetPassword->setToken($hash);
-                $entityManager -> persist($resetPassword);
-                $entityManager -> flush();
+                $entityManager->persist($resetPassword);
+                $entityManager->flush();
 
                 // Send an email with the reset password token
-                $mailerService->sendMail($emailValue, 'parrot@example.fr','Demande de réinitialisation de mot de passe.', '@email_templates/reset_password.html.twig', [
+                $mailerService->sendMail($emailValue, 'parrot@example.fr', 'Demande de réinitialisation de mot de passe.', '@email_templates/reset_password.html.twig', [
                     'username' => $user->getFirstname(),
                     'token' => $token
                 ]);
-
             }
 
             // Add a success flash message and redirect to the login page

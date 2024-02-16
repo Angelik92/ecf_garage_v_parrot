@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SchedulesRepository;
-use App\Entity\Enumerate\Days;
+use App\Entity\Enumerates\Days;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Console\Descriptor\ReStructuredTextDescriptor;
 

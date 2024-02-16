@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Enumerate;
+namespace App\Entity\Enumerates;
 
 enum Days: string
 {

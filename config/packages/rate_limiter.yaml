@@ -1,6 +1,12 @@
 framework:
-  rate_limiter:
-    passwordRecovery:
-      policy: fixed_window
-      limit: 10
-      interval: '60 minutes'
+    rate_limiter:
+        passwordRecovery:
+            policy: 'token_bucket'
+            limit: 100
+            interval: '60 minutes'
+            
+            
+        authenticated:
+            policy: 'token_bucket'
+            limit: 5000
+            rate: { interval: '15 minutes', amount: 500 }
