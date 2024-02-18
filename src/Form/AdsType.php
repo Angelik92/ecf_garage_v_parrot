@@ -5,10 +5,8 @@ namespace App\Form;
 use App\Entity\Ads;
 use App\Entity\Cars;
 use App\Entity\User;
-use Doctrine\DBAL\Types\FloatType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -18,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Validator\Constraints\File;
 
 
 class AdsType extends AbstractType
@@ -56,7 +54,7 @@ class AdsType extends AbstractType
             ->add('description', TextareaType::class, [
                 'label' => 'Description'
             ])
-            ->add('car', EntityType::class,[
+            ->add('car', EntityType::class, [
                 'label' => 'Modèle',
                 'class' => Cars::class,
                 'choice_label' => 'model',
@@ -67,13 +65,24 @@ class AdsType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '1024k',
+                        'mimeTypes' => [
+                            'image/png',
+                            'image/jpeg',
+                            'image/webp',
+                        ],
+                        'mimeTypesMessage' => 'Vous devez mettre des images au format JPEG, PNG, WEBP',
+                        'maxSizeMessage' => 'Votre image doit faire maximum {{ limit }}, veuillez convertir votre image.'
+                    ])
+                ],
             ])
             ->add('Valider', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success'
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
