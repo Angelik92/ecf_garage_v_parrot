@@ -8,7 +8,6 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
         
-        
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -17,7 +16,7 @@
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
-    <body>
+    <body class="d-flex flex-column w-100 h-100">
         {% include 'partials/_header.html.twig' %}
         {% block body %}{% endblock %}
         {% include 'partials/_footer.html.twig' %}
