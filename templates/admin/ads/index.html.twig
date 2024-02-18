@@ -6,13 +6,7 @@
 <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly text-primary">
     <h1 class="text-light fw-bold">Liste des annonces</h1>
 
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="alert alert-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
+    {% include 'partials/_messages.html.twig' %}
 
     <table class="table table-primary table-hover table-responsive-md">
         <thead>
@@ -45,7 +39,7 @@
                     {% endfor %}
                 </td>
                 <td>
-                    <div class="d-grid gap-2 d-md-block">
+                    <div class="d-grid gap-2 mx-auto">
                         <a class="btn btn-primary" href="{{ path('ads_show', {'id': ad.id}) }}"><i class="bi bi-eye"></i> Voir</a>
                         <a class="btn btn-warning" href="{{ path('ads_edit', {'id': ad.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
                     </div>

@@ -8,6 +8,8 @@
         <div class="container bg-secondary bg-opacity-50 rounded-4 text-tertiary m-5">
             <h1 class="text-center mt-5"> Annonce {{ ad.title }}</h1>
 
+            {% include 'partials/_messages.html.twig' %}
+
             <section class="container p-5">
              {% if ad.pictures is not empty %}
                 {% if ad.pictures|length > 1 %}

@@ -6,13 +6,7 @@
     <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly text-primary">
         <h1 class="text-light fw-bold">Liste des utilisateurs</h1>
 
-        {% for label, messages in app.flashes %}
-            {% for message in messages %}
-                <div class="alert alert-{{ label }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endfor %}
+        {% include 'partials/_messages.html.twig' %}
 
         <table class="table table-primary table-hover table-responsive-md">
             <thead>
@@ -42,7 +36,7 @@
 
                     <td>
                         <a class="btn btn-primary" href="{{ path('user_show', {'id': user.id}) }}"><i class="bi bi-person-bounding-box"></i>Voir</a>
-                        <a class="btn btn-primary" href="{{ path('user_edit', {'id': user.id}) }}"><i class="bi bi-person-fill-gear"></i> Modifier</a>
+                        <a class="btn btn-warning" href="{{ path('user_edit', {'id': user.id}) }}"><i class="bi bi-person-fill-gear"></i> Modifier</a>
                     </td>
                 </tr>
             {% else %}

@@ -28,10 +28,10 @@
                     <td>{{ car.fuel.label | capitalize }}</td>
                     <td>{{ car.power }} CH</td>
                     <td>
-                        <div class="d-grid gap-2 d-md-block">
+                        
                             <a class="btn btn-primary" href="{{ path('cars_show', {'id': car.id}) }}"><i class="bi bi-eye"></i> Voir</a>
                             <a class="btn btn-warning" href="{{ path('cars_edit', {'id': car.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
-                        </div>
+                        
                     </td>
                 </tr>
             {% else %}

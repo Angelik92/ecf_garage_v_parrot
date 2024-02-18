@@ -20,7 +20,7 @@
                 <tr>
                     <td>{{ brand.name | upper}}</td>
                     <td>
-                        <div class="d-grid gap-2 d-md-block">
+                        <div class="d-grid gap-2 mx-auto">
                             <a class="btn btn-primary" href="{{ path('brands_show', {'id': brand.id}) }}"><i class="bi bi-eye"></i> Voir</a>
                             <a class="btn btn-warning" href="{{ path('brands_edit', {'id': brand.id}) }}"><i class="bi bi-pencil-square"></i> Modifier</a>
                         </div>
