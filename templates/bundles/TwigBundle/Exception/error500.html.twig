@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class = "page500 container-fluid d-flex flex-column  align-items-center justify-content-between my-5">
+        <h1>OOuuupppsss ! Un problème est survenue</h1>
+        <img class= "page_error_img" src="{{ asset('build/images/erreur500.jpg') }}" alt="photo voiture en panne">
+        <a class="btn btn-primary my-5" href="{{ path('home') }}"> Retourner à l'accueil</a>    
+    </section>
+{% endblock %}

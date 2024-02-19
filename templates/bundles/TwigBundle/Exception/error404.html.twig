@@ -3,6 +3,7 @@
 {% block body %}
     <section class = "page404 container-fluid d-flex flex-column  align-items-center my-5">
         <h1>Page non trouvée</h1>
-    <img class= "page404__img" src="{{asset('build/images/error404.jpg')}}" alt="">
+        <img class= "page_error_img" src="{{ asset('build/images/error404.jpg') }}" alt="dessin erreur 404">
+        <a class="btn btn-primary" href="{{ path('home') }}">Retourner à l'accueil</a>
     </section>
 {% endblock %}
