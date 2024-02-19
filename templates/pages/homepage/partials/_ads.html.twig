@@ -11,7 +11,7 @@
                         <div class="card h-100 w-100">
                             {% if ad.pictures is not empty %}
                                 {% set first_picture = ad.pictures[0] %}
-                                <img class="ad__card__image w-100 h-35" src="/uploads/{{ first_picture.path }}">
+                                <img class="ad__card__image w-100 h-35" src="/uploads/{{ first_picture.path }}" alt="photos de {{ ad.title }}">
                             {% else %}
                                 <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="ad__card__image w-100 h-35" alt="photo du véhicule">
                             {% endif %}

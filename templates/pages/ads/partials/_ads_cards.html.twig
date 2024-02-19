@@ -1,3 +1,4 @@
+
 {% for ad in ads %}
     <div class="col mb-5">
         <div class="card h-100 w-100">
@@ -7,7 +8,7 @@
                         <div class="carousel-inner ">
                             {% for key, picture in ad.pictures %}
                                 <div class="carousel-item {% if key == 0 %} active{% endif %}">
-                                    <img class="ad__card__image w-100 h-35" src="/uploads/{{ picture.path }}">
+                                    <img class="ad__card__image w-100 h-35" src="/uploads/{{ picture.path }}" alt="photos de {{ ad.title }}">
                                 </div>
                             {% endfor %}
                         </div>
@@ -21,7 +22,7 @@
                         </button>
                     </div>
                 {% else %}
-                    <img class="ad__card__image w-100 h-35" src="/uploads/{{ ad.pictures[0].path}}">
+                    <img class="ad__card__image w-100 h-35" src="/uploads/{{ ad.pictures[0].path}}" alt="photos de {{ ad.title }}">
                 {% endif %}
             {% else %}
                 <img src="{{ asset('build/images/vehicule-defaut.jpg') }}" class="ad__card__image w-100 h-35" alt="photo du véhicule">

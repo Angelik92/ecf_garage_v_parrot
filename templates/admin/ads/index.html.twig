@@ -35,7 +35,7 @@
                 <td>{{ ad.updateAt ? ad.updateAt|date('d-m-Y') : '' }}</td>
                 <td class="w-25">{{ ad.description }}</td>
                 <td>{% for picture in ad.pictures %}
-                        <img class="img_mini" src="/uploads/{{ picture.path }}">
+                        <img class="img_mini" src="/uploads/{{ picture.path }}" alt="photo de la voiture {{ ad.title }}">
                     {% endfor %}
                 </td>
                 <td>
