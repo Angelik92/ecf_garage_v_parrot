@@ -65,18 +65,7 @@ class AdsType extends AbstractType
                 'multiple' => true,
                 'mapped' => false,
                 'required' => false,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '1024k',
-                        'mimeTypes' => [
-                            'image/png',
-                            'image/jpeg',
-                            'image/webp',
-                        ],
-                        'mimeTypesMessage' => 'Vous devez mettre des images au format JPEG, PNG, WEBP',
-                        'maxSizeMessage' => 'Votre image doit faire maximum {{ limit }}, veuillez convertir votre image.'
-                    ])
-                ],
+
             ])
             ->add('Valider', SubmitType::class, [
                 'attr' => [
