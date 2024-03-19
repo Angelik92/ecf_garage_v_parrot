@@ -8,18 +8,25 @@ function createFiler(element) {
     const filter = element.querySelector(".js-filter");
     const content = element.querySelector(".js-filter-content");
     const form = element.querySelector(".js-filter-form");
-    const pagination = element.querySelector('.js-filter-pagination');
     function bindEvents() {
         // Add event listeners for various input types
-        form.querySelectorAll('input[type=checkbox], input[type=number], input[type=text]').forEach(input => {
-            input.addEventListener('change',  loadForm.bind(this))
+        form.querySelectorAll(
+            "input[type=checkbox], input[type=number], input[type=text]"
+        ).forEach((input) => {
+            if (input.type === "checkbox") {
+                input.addEventListener("change", loadForm.bind(this));
+            } else {
+                input.addEventListener("keyup", loadForm.bind(this));
+            }
         });
     }
 
     async function loadForm() {
         // Collect form data
         const data = new FormData(form);
-        const url = new URL(form.getAttribute('action') || window.location.href);
+        const url = new URL(
+            form.getAttribute("action") || window.location.href
+        );
         const params = new URLSearchParams();
 
         data.forEach((value, key) => {
@@ -32,11 +39,11 @@ function createFiler(element) {
 
     async function loadUrl(url) {
         // Construct the AJAX URL
-        const ajaxUrl = url + '&ajax=1';
+        const ajaxUrl = url + "&ajax=1";
         const response = await fetch(ajaxUrl, {
             headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-            }
+                "X-Requested-With": "XMLHttpRequest",
+            },
         });
 
         if (response.status >= 200 && response.status < 300) {
@@ -52,10 +59,10 @@ function createFiler(element) {
 
     return {
         loadForm,
-        loadUrl
+        loadUrl,
     };
 }
 
 // Select the filter element and create the filter
-const filterElement = document.querySelector('.js-filter');
-const filer = createFiler(filterElement)
+const filterElement = document.querySelector(".js-filter");
+const filer = createFiler(filterElement);
