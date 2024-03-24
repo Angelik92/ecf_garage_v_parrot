@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
+use Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator;
 use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Length;
@@ -21,11 +21,12 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ResetPasswordController extends AbstractController
 {
+
     #[Route('/reset_password_edit/{token}', name: 'reset_password_edit/{token}', methods: ['GET', 'POST'])]
-    public function resetPassword(RateLimiterFactory $passwordRecovery, Request $request, string $token, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
+    public function resetPassword(RateLimiterFactory $passwordRecoveryLimiter, Request $request, string $token, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $entityManager, UserPasswordHasherInterface $userPasswordHasher)
     {
         // Create a rate limiter for password recovery requests
-        $limiter = $passwordRecovery->create($request->getClientIp());
+        $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
 
         // Check if rate limit is exceeded
         if (false === $limiter->consume(1)->isAccepted()) {
@@ -33,7 +34,6 @@ class ResetPasswordController extends AbstractController
             // Display an error message and redirect to the login page
             $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative.');
             return $this->redirectToRoute('login');
-            throw new TooManyRequestsHttpException();
         }
 
         // Find the reset password entity based on the provided token
@@ -93,14 +93,13 @@ class ResetPasswordController extends AbstractController
         ]);
     }
 
-    #[Route('/reset', name: 'reset_password_request',  methods: ['GET', 'POST'])]
-    public function resetPasswordRequest(RateLimiterFactory $passwordRecovery, Request $request, UserRepository $userRepository, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $entityManager, MailerService $mailerService): Response
+    #[Route('/reset_password_request', name: 'reset_password_request',  methods: ['GET', 'POST'])]
+    public function resetPasswordRequest(RateLimiterFactory $passwordRecoveryLimiter, Request $request, UserRepository $userRepository, ResetPasswordRepository $resetPasswordRepository, EntityManagerInterface $entityManager, MailerService $mailerService): Response
     {
-        $limiter = $passwordRecovery->create($request->getClientIp());
+        $limiter = $passwordRecoveryLimiter->create($request->getClientIp());
         if (false === $limiter->consume(1)->isAccepted()) {
 
             $this->addFlash('error', 'Vous devez attendre 1 heure pour refaire une tentative.');
-            throw new TooManyRequestsHttpException();
             return $this->redirectToRoute('login');
         }
 
